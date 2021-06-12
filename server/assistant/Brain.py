@@ -18,13 +18,7 @@ class Brain(object):
 
         skills_root_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'skills')
 
-        self.load_skill(skills_root_dir, 'tywydd')
-        self.load_skill(skills_root_dir, 'newyddion')
-        self.load_skill(skills_root_dir, 'amser')
         self.load_skill(skills_root_dir, 'spotify')
-        self.load_skill(skills_root_dir, 'larwm')
-        self.load_skill(skills_root_dir, 'wicipedia')
-        self.load_skill(skills_root_dir, 'clic')
         self.load_skill(skills_root_dir, 'youtube')
         self.load_skill(skills_root_dir, 'tea')
 

@@ -60,9 +60,8 @@ A'u rhoi mewn ffeiliau `apikey.py` o fewn is-ffolder yn y sgil berthnasol.
 Diolch i docker, mae'r proses gosod popeth arall yn hawdd iawn. Agorwch ffenestr 'Terminal' ar eich cyfrifiadur, ac o fewn ychydig iawn o  orchmynion bydd y sgwrsfot yn rhedeg ar eich system:
  
 ```
-$ git clone https://github.com/techiaith/macsen-sgwrsfot.git
-$ cd macsen-sgwrsfot
-( ... rhoi ffeiliau apikey.py i fewn ...)
-$ make build-online-api
-$ make run-online-api
+$ git clone https://github.com/naturalshine/soother-chatbot.git
+$ cd soother-chatbot
+$ make build
+$ make run
 ```
