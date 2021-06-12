@@ -1,0 +1,11 @@
+*.pyc
+*.dict
+apikey.py
+cysill_arlein_apikey.py
+mysql
+recordings
+*_cache
+server/assistant/*_cache
+data
+log
+log*
