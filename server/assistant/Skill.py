@@ -6,6 +6,7 @@ import importlib
 
 import itertools
 from string import Formatter
+import cherrypy
 
 from adapt.intent import IntentBuilder
 from adapt.engine import DomainIntentDeterminationEngine
@@ -13,6 +14,8 @@ from adapt.engine import DomainIntentDeterminationEngine
 from padatious import IntentContainer
 from padatious.util import expand_parentheses
 
+from SootherContext import SootherContextManager
+from Engine import create_engine
 
 class EntitiesDict(dict):
     def __missing__(self, key):
@@ -32,7 +35,7 @@ class Skill(object):
         self._adapt_intent_engine = None
 
         self.initialize_intent_parser()
-
+        self.ContextManager = SootherContextManager()
 
     def is_active(self):
         return self._active
@@ -182,7 +185,53 @@ class Skill(object):
 
         return adapt_best_confidence, padatious_result
 
+    def act_on_intent(self, intent, text):
+        pass
 
-    def handle(self, intent, text, latitude, longitude):
+    def run_intent(self, text, engineEntities):
+        cherrypy.log("run intent")
+        engine = create_engine(engineEntities)
+        # determine intents in text
+        intents = [intent for intent in engine.determine_intent(text, include_tags=True, context_manager=self.ContextManager)]
+
+        responseArr = []
+
+        # if there are intents in the text
+        if intents:
+            # act on them
+            # this should only be one for our usecase
+            for intent in intents:
+                response = self.act_on_intent(intent, text)
+                if isinstance(response, str):
+                    responseArr.append(response)
+                else: 
+                    responseArr = response
+        else:
+            if 'LastUtteranceCount' not in cherrypy.session: 
+                cherrypy.session["LastUtteranceCount"] = 1
+            else: 
+                cherrypy.session["LastUtteranceCount"] = cherrypy.session.get("LastUtteranceCount") + 1
+
+            if 'LastUtterance' not in cherrypy.session:
+                response = "Sorry, cunt, could you repeat that cunt?"
+            else: 
+                if cherrypy.session.get("LastUtteranceCount") > 2 and cherrypy.session.get("LastUtteranceCount") < 5:
+                    response = "I said " + cherrypy.session.get("LastUtterance") + ". To return to the menu, say 'menu'."
+                    responseArr.append(response)
+
+                elif cherrypy.session.get("LastUtteranceCount") >= 5: 
+                    responseArr = self.run_intent("menu", engineEntities)
+                    cherrypy.session["LastUtteranceCount"] = 0
+                else: 
+                    response = "Sorry cunt, I said " + str(cherrypy.session.get("LastUtterance"))
+                    responseArr.append(response)
+
+
+        return responseArr
+
+    def handle_no_context(self, intent, text, latitude, longitude):
         pass 
+
+    def handle(self, text, **kwargs):
+        pass
 

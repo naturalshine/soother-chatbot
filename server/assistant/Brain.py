@@ -21,6 +21,10 @@ class Brain(object):
         self.load_skill(skills_root_dir, 'spotify')
         self.load_skill(skills_root_dir, 'youtube')
         self.load_skill(skills_root_dir, 'tea')
+        self.load_skill(skills_root_dir, 'Menu')
+        self.load_skill(skills_root_dir, 'Personality')
+        self.load_skill(skills_root_dir, 'asmr')
+        self.load_skill(skills_root_dir, 'soother')
 
         if online:
             from RecordingsDatabase import RecordingsDatabase
@@ -33,6 +37,9 @@ class Brain(object):
             initialize_skills_database_task.delay(self.list_skills())
            
  
+    def get_skill_instance(self, skill_name):
+        instance = self.skills[skillName]
+        return instance
 
     def load_skill(self, skills_root_dir, skillname, active=True):
         skill_python_module = importlib.import_module('skills.%s.%s' % (skillname, skillname))
@@ -53,7 +60,22 @@ class Brain(object):
     def get_unrecorded_sentence(self, uid):
         return self.mysql_db.select_random_unrecorded_sentence(uid)
 
-    @cherrypy.expose
+
+    def handle_from_skill(self, text):
+        best_key, best_intent = self.determine_intent(text)
+        if best_key is not None: 
+            cherrypy.log("BEST KEY")
+            cherrypy.log(best_key)
+            if len(best_key) > 0:
+                cherrypy.session["activeSkill"] = best_key
+
+
+        latitude=53.2303869
+        longitude=-4.1299242
+        if best_intent is not None: 
+            return self.handle_intent(best_key, best_intent, text, latitude, longitude)
+            
+
     def handle(self, text, latitude=0.0, longitude=0.0):
         # Bangor, Gwynedd 
         cherrypy.log('alpha')
@@ -62,12 +84,12 @@ class Brain(object):
             longitude=-4.1299242
 
 
-        if 'activeSkill' not in cherrypy.session:
+        if 'activeSkill' not in cherrypy.session or cherrypy.session['activeSkill'] is None:
             best_key, best_intent = self.determine_intent(text)
             if best_key is not None: 
                 cherrypy.log(best_key)
 
-                if(self.skills[best_key].get_context()):
+                if len(best_key) > 0:
                     cherrypy.session["activeSkill"] = best_key
 
         else: 
@@ -75,16 +97,23 @@ class Brain(object):
             cherrypy.log(currentSkill)
             best_key, best_intent = self.determine_contextual_intent(text, currentSkill)
 
-        if best_intent: 
+        if best_intent is not None: 
             skill_result=self.handle_intent(best_key, best_intent, text, latitude, longitude)
-            return cherrypy.session["activeSkill"], skill_result
+            return best_key, skill_result
         else:
-            return '', None
+            return 'Sorry we could not find a match!', None
 
 
     def handle_intent(self, handler_key, intent, text, latitude, longitude):
-        return self.skills[handler_key].handle(intent, text, latitude, longitude)
-
+        if(self.skills[handler_key].hasContext):
+            if handler_key == "Menu_skill":
+                ContextManager = self.skills["Personality_skill"].ContextManager
+                return self.skills[handler_key].handle(text, cManager=ContextManager)
+            else:
+                return self.skills[handler_key].handle(text)
+        else: 
+            return self.skills[handler_key].handle_no_context(intent, text, latitude, longitude)
+    
     def determine_contextual_intent(self, text, skillName):
 
         skillInstance = self.skills[skillName]

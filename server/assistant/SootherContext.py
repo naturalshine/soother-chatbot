@@ -26,7 +26,7 @@ class SootherContextManager:
     """
     def __init__(self):
         self.frame_stack = []
-        self.timeout = 20 * 60  # minutes to seconds
+        self.timeout = 1 * 60  # minutes to seconds
 
     def clear_context(self):
         """Remove all contexts."""

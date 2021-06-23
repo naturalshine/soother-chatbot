@@ -12,10 +12,11 @@ from padatious import IntentContainer
 class spotify_skill(Skill):
 
     def __init__(self, root_dir, name, nlp, active, hasContext):
+        hasContext = False
         super(spotify_skill, self).__init__(root_dir, name, nlp, active, hasContext)
 
 
-    def handle(self, intent_parser_result, latitude, longitude):
+    def handle_no_context(self, intent_parser_result, latitude, longitude):
 
         # chwaraea.cerddoriaeth {'artist': 'Anweledig'}
         skill_response = []

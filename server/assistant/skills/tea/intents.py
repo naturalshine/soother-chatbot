@@ -88,6 +88,26 @@ honey_keywords = [
     'bee'
 ]
 
+exit_keywords = [
+    'leave',
+    'bye',
+    'exit',
+    'quit',
+    'goodbye',
+    'later',
+    'farewell'
+]
+
+
+menu_keywords = [
+    'menu',
+    'what else can you do',
+    'something else',
+    'help',
+    'what are my options',
+    'what else',
+    'what can you do'
+]
 
 #appointment_regex_keywords = ['{} (?P<Appointment>(?:(?!with|at).)*)'.format(keyword)
 #for keyword in appointment_keywords]
@@ -102,6 +122,16 @@ with_regex_keyword = 'with (?P<With>\S*)'
 
 
 # context should be added as requirement here
+quit_intent = IntentBuilder('QuitIntent')\
+    .require('ExitKeyword')\
+    .optionally('PleaseKeyword')\
+    .build()
+
+menu_intent = IntentBuilder('MenuIntent')\
+    .require('MenuKeyword')\
+    .optionally('PleaseKeyword')\
+    .build()
+
 bring_tea_intent = IntentBuilder('BringTeaIntent')\
     .require('BringKeyword')\
     .require('TeaKeyword')\
@@ -161,6 +191,8 @@ welcome_intent = IntentBuilder('WelcomeIntent')\
 
 # Regular entity groups
 entities = {
+    'ExitKeyword': exit_keywords,
+    'MenuKeyword': menu_keywords, 
     'YesKeyword': yes_keywords,
     'BringKeyword': bring_keywords,
     'NoKeyword': no_keywords,
@@ -179,7 +211,8 @@ entities = {
 # List of regular expression entity strings
 single_regex_entities = [with_regex_keyword]
 
-intents = [bring_tea_intent, yes_honey_intent,
+skill_intents = [bring_tea_intent, yes_honey_intent,
            no_honey_intent, yes_milk_intent, no_milk_intent, 
-           tea_type_intent, no_tea_type_intent, welcome_intent]
+           tea_type_intent, no_tea_type_intent, welcome_intent, 
+           quit_intent, menu_intent]
 
