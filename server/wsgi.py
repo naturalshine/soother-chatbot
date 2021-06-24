@@ -156,6 +156,9 @@ cherrypy.config.update({
 
 cherrypy.tree.mount(SkillsAPI(), '/', {'/': {
     'tools.sessions.on' : True,
+    'tools.staticdir.on': True,
+    'tools.staticdir.root': '/opt/skills-server',
+    'tools.staticdir.dir': "static",
     'tools.sessions.storage_type' : "file",
     'tools.sessions.storage_path' : "sessions",
     'tools.sessions.timeout' : 60,
