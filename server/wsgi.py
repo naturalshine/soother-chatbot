@@ -155,6 +155,8 @@ cherrypy.config.update({
 })
 
 cherrypy.tree.mount(SkillsAPI(), '/', {'/': {
+    'tools.staticdir.on': True,
+    'tools.staticdir.dir': 'static',
     'tools.sessions.on' : True,
     'tools.sessions.storage_type' : "file",
     'tools.sessions.storage_path' : "sessions",
