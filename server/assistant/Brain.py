@@ -63,7 +63,7 @@ class Brain(object):
 
     def handle_from_skill(self, text):
         best_key, best_intent = self.determine_intent(text)
-        if best_key is not None: 
+        if best_key is not "" or best_key is not None: 
             cherrypy.log("BEST KEY")
             cherrypy.log(best_key)
             if len(best_key) > 0:
@@ -72,7 +72,7 @@ class Brain(object):
 
         latitude=53.2303869
         longitude=-4.1299242
-        if best_intent is not None: 
+        if best_intent is not "" or best_intent is not None: 
             return self.handle_intent(best_key, best_intent, text, latitude, longitude)
             
 
@@ -84,9 +84,9 @@ class Brain(object):
             longitude=-4.1299242
 
 
-        if 'activeSkill' not in cherrypy.session or cherrypy.session['activeSkill'] is None:
+        if 'activeSkill' not in cherrypy.session or cherrypy.session['activeSkill'] == "":
             best_key, best_intent = self.determine_intent(text)
-            if best_key is not None: 
+            if best_key is not "" or best_key is not None: 
                 cherrypy.log(best_key)
 
                 if len(best_key) > 0:
@@ -97,7 +97,7 @@ class Brain(object):
             cherrypy.log(currentSkill)
             best_key, best_intent = self.determine_contextual_intent(text, currentSkill)
 
-        if best_intent is not None: 
+        if best_intent is not "" or best_intent is not None: 
             skill_result=self.handle_intent(best_key, best_intent, text, latitude, longitude)
             return best_key, skill_result
         else:

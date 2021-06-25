@@ -38,19 +38,19 @@ class Personality_skill(Skill):
 		
 		elif intent_type == 'PlayDogIntent':
 			cherrypy.session["RolePlayContext"] = "DogContext"
-			cherrypy.session["activeSkill"] = None
+			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0
 			response = "I'm your therapist and I'm a dog! What would you like to do?"
 
 		elif intent_type == 'PlayAlienIntent':
 			cherrypy.session["RolePlayContext"] = "AlienContext"
-			cherrypy.session["activeSkill"] = None
+			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0
 			response = "I'm an alien and I'm sitting on your head. What would you like to do?"
 
 		elif intent_type == 'PlayFriendIntent':
 			cherrypy.session["RolePlayContext"] = "FriendContext"
-			cherrypy.session["activeSkill"] = None
+			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0
 			response = "I'm your friend, I'm lost in time. What would you like to do?"
 

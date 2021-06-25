@@ -82,7 +82,7 @@ class tea_skill(Skill):
 
 		elif intent_type == 'WelcomeIntent':
 			self.ContextManager.clear_context()
-			cherrypy.session["activeSkill"] = None
+			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0			
 			response = f"You're welcome!! Enjoy your {teaType} tea"
 		
@@ -93,7 +93,7 @@ class tea_skill(Skill):
 
 		elif intent_type == 'MenuIntent':
 			self.ContextManager.clear_context()
-			cherrypy.session["activeSkill"] = None
+			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0
 			# trigger menu skill here
 			menu = intent["MenuKeyword"]

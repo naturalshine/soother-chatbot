@@ -46,7 +46,7 @@ class soother_skill(Skill):
 			text = "asmr example video"
 			r = NewBrain.handle_from_skill(text)
 			r['response'] = "Here's an example ASMR video."
-			cherrypy.session["activeSkill"] = None
+			cherrypy.session["activeSkill"] = ""
 			response = r
 		elif intent_type == 'QuitIntent':
 			self.ContextManager.clear_context()

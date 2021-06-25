@@ -38,21 +38,21 @@ class Menu_skill(Skill):
 			response = f"BITCH BYE!!"
 
 		elif intent_type == 'DogMenuIntent':
-			cherrypy.session["activeSkill"] = None
+			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0			
 			# trigger menu skill here
 			menu = intent["MenuKeyword"]
 			response = "I'm your dog, I'm your therapist, here are your options: I can do a therapy role-play, tell you more about myself, tell you about SOOTHER, or recommend ASMR content."
 		
 		elif intent_type == 'AlienMenuIntent':
-			cherrypy.session["activeSkill"] = None
+			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0			
 			# trigger menu skill here
 			menu = intent["MenuKeyword"]
 			response = "I'm an alien, I'm on your head. Here are your options: I can guide you through a role-play, tell you more about myself, tell you about SOOTHER, or recommend ASMR content."
 		
 		elif intent_type == 'FriendMenuIntent':
-			cherrypy.session["activeSkill"] = None
+			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0			
 			# trigger menu skill here
 			menu = intent["MenuKeyword"]
