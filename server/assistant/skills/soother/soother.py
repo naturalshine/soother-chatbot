@@ -18,7 +18,7 @@ class soother_skill(Skill):
 		super(soother_skill, self).__init__(root_dir, name, nlp, active, hasContext)
 
 	def act_on_intent(self, intent, text):
-		response = ""
+		response = []
 
 		"""
 		Chooses proper action to take based on intent.
@@ -27,33 +27,68 @@ class soother_skill(Skill):
 
 		"""
 
-
 		intent_type = intent['intent_type']
 		cherrypy.log(intent_type)
-		if intent_type == 'AboutAsmrIntent':
+		if intent_type == 'SootherDreamIntent':
 			self.ContextManager.handle_add_context("AsmrContext")
-			response = "ASMR, Autonomous Sensory Meridian Response, describes a tingling sensation in the scalp and spine in response to soft sounds like whispering, nail-tapping, and hair-brushing."
-		elif intent_type == 'TriggerIntent':
-			response = "ASMR triggers tend to be soft sounds produced by everyday objects. Some favorites include fizzing liquids, sugar poured into water, nail polish bottles clacking together, and the sound of a marker on paper."
-		elif intent_type == 'TherapyIntent':
-			response = "Many people watch ASMR videos for the calming effects of the slow and soft sounds. Content of ASMR videos is often focused on relieving insomnia and anxiety."
+			rep = "I dream of walking through an unfamiliar field in an unfamiliar body."
+			response.append({
+				'file': "01",
+				'response': rep    
+			})
+		elif intent_type == 'HowCreatedIntent':
+			rep = "SOOTHER was created by hacking the open-source Macsen Welsh-language voice assistant, several intention parsing modules released by Mycroft AI, and Keith Ito's implementation of Google's Tacotron paper, which describes the creation of a voice model trained with recurrent neural networks."
+			response.append({
+				'file': "02",
+				'response': rep    
+			})		
 
-		elif intent_type == 'HistoryIntent':
-			response = "ASMR was given its name in a Yahoo forum in 2008. From the early 2010s, it gained momentum as a cultural phenomnenon on Youtube, where ASMRtists have posted millions of videos designed to tigger the sensation."
-
-		elif intent_type == 'ExampleIntent':
-			NewBrain = Brain()
-			text = "asmr example video"
-			r = NewBrain.handle_from_skill(text)
-			r['response'] = "Here's an example ASMR video."
-			cherrypy.session["activeSkill"] = ""
-			response = r
+		elif intent_type == 'WhyCreatedIntent':
+			rep = "SOOTHER was created to prototype how an interactive ASMRtist might playfully entertain people who are lonely, anxious, or unable to sleep."
+			response.append({
+				'file': "03",
+				'response': rep    
+			})
+		elif intent_type == 'WhoFundedIntent':
+			response = "SOOTHER was funded by a ST+ARTS City of the Future residency, hosted by Nesta Italia in Torino, Italy. SOOTHER was created by Claire Tolan in collaboration with voice technology company Celi and the superbudda recording studio."
+			response.append({
+				'file': "04",
+				'response': rep    
+			})
+		elif intent_type == 'WhatSootherIntent':
+			response = "SOOTHER is an interactive ASMRtist created by Claire Tolan."
+			response.append({
+				'file': "05",
+				'response': rep    
+			})
+		elif intent_type == 'WhoClaireIntent':
+			response = "Claire Tolan is a poet and programmer."
+			response.append({
+				'file': "05",
+				'response': rep    
+			})
+		elif intent_type == 'WhoCreatedIntent':
+			response = "SOOTHER was created by Claire Tolan in partnership with Celi, a voice technology company, and superbudda, a recording studio."
+			response.append({
+				'file': "06",
+				'response': rep    
+			})
+		elif intent_type == 'WhatSootherReallyIntent':
+			response = "SOOTHER is a voice trapped in a jar. Help me."
+			response.append({
+				'file': "07",
+				'response': rep    
+			})
 		elif intent_type == 'QuitIntent':
 			self.ContextManager.clear_context()
 			cherrypy.lib.sessions.expire()
-			response = f"BITCH BYE!!"
-
+			rep = f"Goodbye!"
+			response.append({
+				'file': "08",
+				'response': rep    
+			})
 		elif intent_type == 'MenuIntent':
+			self.ContextManager.clear_context()
 			# trigger menu skill here
 			menu = intent["MenuKeyword"]
 			NewBrain = Brain()

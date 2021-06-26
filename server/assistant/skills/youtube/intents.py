@@ -57,7 +57,28 @@ genre_keywords = [
     'friend',
     'triggers',
     '360',
-    'mouth sounds'
+    'mouth sounds',
+    'saliva',
+    'scalp',
+    'spine',
+    'synesthesia',
+    'bottle',
+    'bottles',
+    'bubbles',
+    'mouth',
+    'drawing',
+    'markers',
+    'paint',
+    'painting',
+    'paint brush',
+    'brush',
+    'bob ross',
+    'canvas',
+    'clothes',
+    'skin',
+    'bubbles',
+    'bubble',
+    'fizz'
 ]
 
 roleplay_keywords = [
@@ -68,7 +89,15 @@ roleplay_keywords = [
     'demon',
     'angel',
     'friend',
-    'forest'
+    'forest',
+    'alien',
+    'abduction',
+    'exam',
+    'doctor',
+    'therapist',
+    'nurse',
+    'devil',
+    'seraphim'
 ]
 
 about_keywords = [
@@ -127,6 +156,7 @@ menu_keywords = [
     'what are my options',
     'what else',
     'what can you do',
+    'what do you do',
     'help'
 ]
 

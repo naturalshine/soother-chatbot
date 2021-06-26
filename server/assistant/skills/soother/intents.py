@@ -234,5 +234,5 @@ entities = {
 # List of regular expression entity strings
 single_regex_entities = [with_regex_keyword]
 
-skill_intents = [menu_intent, quit_intent, soother_dream_intent, how_created_intent, why_created_intent, who_funded_intent, who_claire_intent, who_created_intent, what_soother_intent, what_soother_really_intent, ]
+skill_intents = [menu_intent, quit_intent, soother_dream_intent, how_created_intent, why_created_intent, who_funded_intent, who_claire_intent, who_created_intent, what_soother_intent, what_soother_really_intent]
 

@@ -18,7 +18,7 @@ class asmr_skill(Skill):
 		super(asmr_skill, self).__init__(root_dir, name, nlp, active, hasContext)
 
 	def act_on_intent(self, intent, text):
-		response = ""
+		response = []
 
 		"""
 		Chooses proper action to take based on intent.
@@ -26,33 +26,50 @@ class asmr_skill(Skill):
 		:param dict intent: 
 
 		"""
-
-
 		intent_type = intent['intent_type']
 		cherrypy.log(intent_type)
 		if intent_type == 'AboutAsmrIntent':
 			self.ContextManager.handle_add_context("AsmrContext")
-			response = "ASMR, Autonomous Sensory Meridian Response, describes a tingling sensation in the scalp and spine in response to soft sounds like whispering, nail-tapping, and hair-brushing."
+			rep = "ASMR, Autonomous Sensory Meridian Response, describes a tingling sensation in the scalp and spine in response to soft sounds like whispering, nail-tapping, and hair-brushing."
+			response.append({
+				'file': "0",
+				'response': rep    
+			})
+
 		elif intent_type == 'TriggerIntent':
-			response = "ASMR triggers tend to be soft sounds produced by everyday objects. Some favorites include fizzing liquids, sugar poured into water, nail polish bottles clacking together, and the sound of a marker on paper."
+			rep = "ASMR triggers tend to be soft sounds produced by everyday objects. Some favorites include fizzing liquids, sugar poured into water, nail polish bottles clacking together, and the sound of a marker on paper."
+			response.append({
+				'file': "01",
+				'response': rep    
+			})		
 		elif intent_type == 'TherapyIntent':
-			response = "Many people watch ASMR videos for the calming effects of the slow and soft sounds. Content of ASMR videos is often focused on relieving insomnia and anxiety."
-
+			rep = "Many people watch ASMR videos for the calming effects of the slow and soft sounds. Content of ASMR videos is often focused on relieving insomnia and anxiety."
+			response.append({
+				'file': "02",
+				'response': rep    
+			})
 		elif intent_type == 'HistoryIntent':
-			response = "ASMR was given its name in a Yahoo forum in 2008. From the early 2010s, it gained momentum as a cultural phenomnenon on Youtube, where ASMRtists have posted millions of videos designed to tigger the sensation."
-
+			rep = "ASMR was given its name in a Yahoo forum in 2008. From the early 2010s, it gained momentum as a cultural phenomnenon on Youtube, where ASMRtists have posted millions of videos designed to trigger the sensation."
+			response.append({
+				'file': "03",
+				'response': rep    
+			})
 		elif intent_type == 'ExampleIntent':
 			NewBrain = Brain()
 			text = "asmr example video"
 			r = NewBrain.handle_from_skill(text)
+			r['file'] = '04'
 			r['response'] = "Here's an example ASMR video."
 			cherrypy.session["activeSkill"] = ""
 			response = r
 		elif intent_type == 'QuitIntent':
 			self.ContextManager.clear_context()
 			cherrypy.lib.sessions.expire()
-			response = f"BITCH BYE!!"
-
+			rep = f"Goodbye!"
+			response.append({
+				'file': "05",
+				'response': rep    
+			})
 		elif intent_type == 'MenuIntent':
 			# trigger menu skill here
 			menu = intent["MenuKeyword"]

@@ -25,7 +25,10 @@ class Brain(object):
         self.load_skill(skills_root_dir, 'Personality')
         self.load_skill(skills_root_dir, 'asmr')
         self.load_skill(skills_root_dir, 'soother')
-
+        self.load_skill(skills_root_dir, 'dog')
+        self.load_skill(skills_root_dir, 'friend')
+        self.load_skill(skills_root_dir, 'alien')
+        
         if online:
             from RecordingsDatabase import RecordingsDatabase
             from skills_assistant_tasks import initialize_recordings_database_task, initialize_skills_database_task
@@ -91,26 +94,30 @@ class Brain(object):
 
                 if len(best_key) > 0:
                     cherrypy.session["activeSkill"] = best_key
+            else:
+                return "Sorry we could not find a match!", None
 
         else: 
             currentSkill = cherrypy.session["activeSkill"]
             cherrypy.log(currentSkill)
             best_key, best_intent = self.determine_contextual_intent(text, currentSkill)
 
-        if best_intent is not "" or best_intent is not None: 
-            skill_result=self.handle_intent(best_key, best_intent, text, latitude, longitude)
-            return best_key, skill_result
+        if best_intent is not "" or best_intent is not None or best_key != "" or best_key is not None: 
+            if best_key == "":
+                cherrypy.log("????")
+                return 'Sorry we could not find a match!', None
+            else:
+                cherrypy.log("BEST KEY")
+                cherrypy.log(best_key)
+                skill_result=self.handle_intent(best_key, best_intent, text, latitude, longitude)
+                return best_key, skill_result
         else:
             return 'Sorry we could not find a match!', None
 
 
     def handle_intent(self, handler_key, intent, text, latitude, longitude):
         if(self.skills[handler_key].hasContext):
-            if handler_key == "Menu_skill":
-                ContextManager = self.skills["Personality_skill"].ContextManager
-                return self.skills[handler_key].handle(text, cManager=ContextManager)
-            else:
-                return self.skills[handler_key].handle(text)
+            return self.skills[handler_key].handle(text)
         else: 
             return self.skills[handler_key].handle_no_context(intent, text, latitude, longitude)
     

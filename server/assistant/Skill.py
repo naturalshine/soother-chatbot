@@ -192,6 +192,7 @@ class Skill(object):
         cherrypy.log("run intent")
         engine = create_engine(engineEntities)
         # determine intents in text
+        
         intents = [intent for intent in engine.determine_intent(text, include_tags=True, context_manager=self.ContextManager)]
 
         responseArr = []
@@ -212,19 +213,15 @@ class Skill(object):
             else: 
                 cherrypy.session["LastUtteranceCount"] = cherrypy.session.get("LastUtteranceCount") + 1
 
-            if 'LastUtterance' not in cherrypy.session:
-                response = "Sorry, cunt, could you repeat that cunt?"
-            else: 
-                if cherrypy.session.get("LastUtteranceCount") > 2 and cherrypy.session.get("LastUtteranceCount") < 5:
-                    response = "I said " + cherrypy.session.get("LastUtterance") + ". To return to the menu, say 'menu'."
-                    responseArr.append(response)
 
-                elif cherrypy.session.get("LastUtteranceCount") >= 5: 
-                    responseArr = self.run_intent("menu", engineEntities)
-                    cherrypy.session["LastUtteranceCount"] = 0
-                else: 
-                    response = "Sorry cunt, I said " + str(cherrypy.session.get("LastUtterance"))
-                    responseArr.append(response)
+            if cherrypy.session.get("LastUtteranceCount") < 5:
+                response = "Sorry, I'm not sure what you're saying! To return to the menu, say 'menu'."
+                responseArr.append(response)
+
+            else: 
+                responseArr = self.run_intent("menu", engineEntities)
+                cherrypy.session["LastUtteranceCount"] = 0
+
 
 
         return responseArr

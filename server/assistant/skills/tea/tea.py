@@ -19,7 +19,7 @@ class tea_skill(Skill):
 		super(tea_skill, self).__init__(root_dir, name, nlp, active, hasContext)
 
 	def act_on_intent(self, intent, text):
-		response = ""
+		response = []
 		milk = False
 		honey = False
 		teaType = "green"
@@ -37,64 +37,100 @@ class tea_skill(Skill):
 		cherrypy.log(intent_type)
 		if intent_type == 'BringTeaIntent':
 			self.ContextManager.handle_add_context('TeaContext')
-			response = "What kind of tea?"
-
+			rep = "What kind of tea?"
+			response.append({
+				'file': "01",
+				'response': rep    
+			})
 		elif intent_type == 'YesHoneyIntent':
 			self.ContextManager.remove_context('HoneyContext')			
 			self.ContextManager.handle_add_context('EndContext')
 			honey = True
 			if milk:
-				response = f"BITCH TAKE YOUR {teaType} TEA with milk and honey AND SHOVE IT DOWN YOUR PUSSSY"
+				rep = f"Sure, here's some {teaType} tea with milk and honey"
+				response.append({
+					'file': "02",
+					'response': rep    
+				})
 			else: 
-				response = f"BITCH TAKE YOUR {teaType} TEA with honey and no milk AND SHOVE IT DOWN YOUR PUSSSY"
-
+				rep = f"Here's youre {teaType} tea with honey but no milk"
+				response.append({
+					'file': "03",
+					'response': rep    
+				})
 		elif intent_type == 'NoHoneyIntent':
 			self.ContextManager.remove_context('HoneyContext')
 			self.ContextManager.handle_add_context('EndContext')
 			honey = False
 			if milk:
-				response = f"BITCH here's your {teaType} tea with milk and no honey."
+				rep = f"Here's your {teaType} tea with milk and no honey."
+				response.append({
+					'file': "04",
+					'response': rep    
+				})
 			else: 
-				response = f"Bitch here's your {teaType} tea without milk and honey"
-
+				rep = f"Here's your {teaType} tea without milk and honey"
+				response.append({
+					'file': "05",
+					'response': rep    
+				})
 		elif intent_type == 'YesMilkIntent':
 			self.ContextManager.remove_context('MilkContext')
 			self.ContextManager.handle_add_context('HoneyContext')
 			milk = True
-			response = "HOW ABOUT HONEY BITCH"
-
+			rep = "How about honey?"
+			response.append({
+				'file': "06",
+				'response': rep    
+			})
 		elif intent_type == 'NoMilkIntent':
 			self.ContextManager.remove_context('MilkContext')			
 			self.ContextManager.handle_add_context('HoneyContext')
 			milk = False
-			response = "NO MILK BUT HONEY????"
-
+			rep = "No milk, but honey?"
+			response.append({
+				'file': "07",
+				'response': rep    
+			})
 		elif intent_type == 'TeaTypeIntent':
 			self.ContextManager.remove_context('TeaContext')
 			self.ContextManager.handle_add_context('MilkContext')
 			teaType = intent["TeaTypeKeyword"]
-			response = "Sure, do you want milk?"
-
+			rep = "Sure, do you want milk?"
+			response.append({
+				'file': "08",
+				'response': rep    
+			})
 		elif intent_type == 'NoTeaTypeIntent':
 			self.ContextManager.remove_context('TeaContext')			
 			self.ContextManager.handle_add_context('MilkContext')
-			response = "Sure, green tea it will be. Do you want milk?"
-
+			rep = "Sure, green tea it will be. Do you want milk?"
+			response.append({
+				'file': "09",
+				'response': rep    
+			})
 		elif intent_type == 'WelcomeIntent':
 			self.ContextManager.clear_context()
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0			
-			response = f"You're welcome!! Enjoy your {teaType} tea"
-		
+			rep = f"You're welcome!! Enjoy your {teaType} tea"
+			response.append({
+				'file': "10",
+				'response': rep    
+			})
 		elif intent_type == 'QuitIntent':
 			self.ContextManager.clear_context()
 			cherrypy.lib.sessions.expire()
-			response = f"BITCH BYE!! Shove your {teaType} tea"
-
+			rep = f"Bye! Enjoy your {teaType} tea"
+			response.append({
+				'file': "11",
+				'response': rep    
+			})
 		elif intent_type == 'MenuIntent':
 			self.ContextManager.clear_context()
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0
+			print(cherrypy.session["RolePlayContext"])
 			# trigger menu skill here
 			menu = intent["MenuKeyword"]
 			NewBrain = Brain()
@@ -109,6 +145,12 @@ class tea_skill(Skill):
 
 		skill_response = []
 
+
+		contextLst = []
+		contextLst = self.ContextManager.get_context()
+		cherrypy.log("CONTEX TLIST")
+		for ct in contextLst:
+			cherrypy.log(ct["key"])
 		engineEntities = {"entities" : entities, "single_regex_entities" : single_regex_entities, "skill_intents": skill_intents}
 
 		skill_response = self.run_intent(text, engineEntities)

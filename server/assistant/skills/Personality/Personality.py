@@ -18,7 +18,7 @@ class Personality_skill(Skill):
 		super(Personality_skill, self).__init__(root_dir, name, nlp, active, hasContext)
 
 	def act_on_intent(self, intent, text):
-		response = ""
+		response = []
 
 		"""
 		Chooses proper action to take based on intent.
@@ -31,34 +31,52 @@ class Personality_skill(Skill):
 		intent_type = intent['intent_type']
 		cherrypy.log(intent_type)
 		if intent_type == 'ChangeRoleIntent':
-			response = "I can play a dog who's your therapist, an alien sitting on your head, or your friend who is trapped in time. Which would you like?"
-		
+			rep = "I can play a dog who's your therapist, an alien sitting on your head, or your friend who is trapped in time. Which would you like?"
+			response.append({
+				'file': "0",
+				'response': rep    
+			})
 		elif intent_type == 'RolePlayIntent':
-			response = "I can play a dog who's your therapist, an alien sitting on your head, or your friend who is trapped in time. Which would you like?"
-		
+			rep = "I can play a dog who's your therapist, an alien sitting on your head, or your friend who is trapped in time. Which would you like?"
+			response.append({
+				'file': "0",
+				'response': rep    
+			})
 		elif intent_type == 'PlayDogIntent':
 			cherrypy.session["RolePlayContext"] = "DogContext"
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0
-			response = "I'm your therapist and I'm a dog! What would you like to do?"
-
+			rep = "I'm your therapist and I'm a dog! What would you like to do?"
+			response.append({
+				'file': "01",
+				'response': rep    
+			})
 		elif intent_type == 'PlayAlienIntent':
 			cherrypy.session["RolePlayContext"] = "AlienContext"
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0
-			response = "I'm an alien and I'm sitting on your head. What would you like to do?"
-
+			rep = "I'm an alien and I'm sitting on your head. What would you like to do?"
+			response.append({
+				'file': "02",
+				'response': rep    
+			})
 		elif intent_type == 'PlayFriendIntent':
 			cherrypy.session["RolePlayContext"] = "FriendContext"
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0
-			response = "I'm your friend, I'm lost in time. What would you like to do?"
-
+			rep = "I'm your friend, I'm lost in time. What would you like to do?"
+			response.append({
+				'file': "03",
+				'response': rep    
+			})
 		elif intent_type == 'QuitIntent':
 			self.ContextManager.clear_context()
 			cherrypy.lib.sessions.expire()
-			response = f"BITCH BYE!!"
-
+			rep = f"Goodbye!"
+			response.append({
+				'file': "04",
+				'response': rep    
+			})
 		elif intent_type == 'MenuIntent':
 			# trigger menu skill here
 			menu = intent["MenuKeyword"]

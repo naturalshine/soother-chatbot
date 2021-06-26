@@ -6,61 +6,63 @@ This module creates intent parsers for the adapt engine.
 from adapt.intent import IntentBuilder
 
 
-asmr_keywords = [
-    'tingles',
-    'asmr',
-    'autonomous sensory meridian response',
-    'braingasm'
+start_keywords = [
+    'dog',
+    'therapist',
+    'play dog',
+    'role play',
+    'role play dog',
+    'be my therapist',
+    'be my dog',
+    'start role play',
+    'start'
 ]
 
-
-triggers_keywords = [
-    'whispering',
-    'nail',
-    'hair',
-    'scissors',
-    'drawing',
-    'visual',
-    'bubble wrap',
-    'crinkling',
-    'marker',
-    'tea',
-    'water',
-    'shower',
-    'crinkle',
-    'whisper',
-    'nail tapping',
-    'tapping',
-    'ear',
-    'scalp',
-    'head',
-    'mouth',
-    'spit',
-    'saliva',
-    'skin',
-    'fabric',
-    'clothes',
-    'bottle',
-    'bottles',
-    'bubbles',
-    'bubble'
-
+feeling_keywords = [
+    'sad',
+    'lonely',
+    'alone',
+    'bored',
+    'happy',
+    'anxious',
+    'joyful',
+    'angry',
+    'annoyed',
+    'upset',
+    'afraid'
 ]
 
 therapy_keywords = [
-    'insomnia',
-    'anxiety',
-    'loneliness',
-    'therapy',
-    'therapeutic',
-    'psychological',
-    'nursing',
-    'care',
-    'soothing',
-    'calming',
-    'calm',
-    'meditative',
-    'caring'
+    'life',
+    'what am I doing',
+    'what should I do',
+    'existential crisis',
+    'isolation',
+    'I don\'t know',
+    'don\'t know',
+    'what could I do'
+]
+
+existential_keywords = [
+    'what is a good life',
+    'what is life',
+    'why are we here',
+    'what is to be done',
+    'how should i live?',
+    'live',
+    'life',
+    'alive',
+    'good person',
+    'good human',
+    'why',
+    'who am I',
+    'who is anyone',
+    'what is'
+]
+
+help_keywords = [
+    'help',
+    'help me'
 ]
 
 about_keywords = [
@@ -111,6 +113,12 @@ exit_keywords = [
     'farewell'
 ]
 
+soother_keywords = [
+    'you',
+    'you\'re',
+    'soother'
+]
+
 
 menu_keywords = [
     'menu',
@@ -118,8 +126,7 @@ menu_keywords = [
     'something else',
     'what are my options',
     'what else',
-    'what can you do',
-    'help'
+    'what can you do'
 ]
 
 history_keywords = [
@@ -130,17 +137,6 @@ history_keywords = [
     'how long'
 ]
 
-example_keywords = [
-    'show me',
-    'can I see', 
-    'watch', 
-    'recommend',
-    'listen to',
-    'what is it like',
-    'example',
-    'demo', 
-    'content'
-]
 
 #appointment_regex_keywords = ['{} (?P<Appointment>(?:(?!with|at).)*)'.format(keyword)
 #for keyword in appointment_keywords]
@@ -160,50 +156,60 @@ quit_intent = IntentBuilder('QuitIntent')\
     .optionally('PleaseKeyword')\
     .build()
 
-about_asmr_intent = IntentBuilder("AboutAsmrIntent")\
-    .require('AboutKeyword')\
-    .require('AsmrKeyword')\
-    .build()
-
-example_intent = IntentBuilder("ExampleIntent")\
-    .require('AsmrContext')\
-    .require('ExampleKeyword')\
-    .optionally('AsmrKeyword')\
-    .build()
-
 menu_intent = IntentBuilder('MenuIntent')\
     .require('MenuKeyword')\
     .optionally('PleaseKeyword')\
     .build()
 
-trigger_intent = IntentBuilder('TriggerIntent')\
-    .require('AsmrContext')\
-    .require('TriggerKeyword')\
-    .optionally('AsmrKeyword')\
+about_dog_intent = IntentBuilder("AboutDog")\
+    .require('AboutKeyword')\
     .build()
 
-therapeutic_intent = IntentBuilder('TherapeuticIntent')\
-    .require('AsmrContext')\
-    .require('TherapyKeyword')\
-    .optionally('AsmrKeyword')\
+existential_intent = IntentBuilder("ExistentialIntent")\
+    .require('ExistentialKeyword')\
     .build()
 
 history_intent = IntentBuilder('HistoryIntent')\
-    .require('AsmrContext')\
     .require('HistoryKeyword')\
-    .optionally('AsmrKeyword')\
+    .build()
+
+feeling_intent = IntentBuilder('FeelingIntent')\
+    .require("FeelingKeyword")\
+    .build()
+
+therapy_intent = IntentBuilder('TherapyIntent')\
+    .require("TherapyKeyword")\
+    .build()
+
+yes_intent = IntentBuilder('YesIntent')\
+    .require('YesKeyword')\
+    .build()
+
+no_intent = IntentBuilder('NoIntent')\
+    .require('NoKeyword')\
+    .build()
+
+soother_intent = IntentBuilder('SootherKeyword')\
+    .require('SootherKeyword')\
+    .build()
+
+start_intent = IntentBuilder('StartIntent')\
+    .require('StartKeyword')\
     .build()
 
 # Regular entity groups
 entities = {
     'ExitKeyword': exit_keywords,
     'MenuKeyword': menu_keywords, 
-    'AsmrKeyword': asmr_keywords,
-    'AboutKeyword': about_keywords,
     'TherapyKeyword': therapy_keywords,
-    'TriggerKeyword': triggers_keywords,
+    'FeelingKeyword': feeling_keywords,
     'HistoryKeyword': history_keywords,
-    'ExampleKeyword': example_keywords
+    'ExistentialKeyword': existential_keywords,
+    'AboutKeyword': about_keywords,
+    'YesKeyword': yes_keywords,
+    'NoKeyword': no_keywords,
+    'SootherKeyword': soother_keywords,
+    'StartKeyword': start_keywords
 }
 
 # List of lists of regular expression entities
@@ -212,5 +218,5 @@ entities = {
 # List of regular expression entity strings
 single_regex_entities = [with_regex_keyword]
 
-skill_intents = [menu_intent, history_intent, example_intent, therapeutic_intent, trigger_intent, about_asmr_intent, quit_intent]
+skill_intents = [menu_intent, quit_intent, therapy_intent, feeling_intent, history_intent, existential_intent, about_dog_intent, yes_intent, no_intent, soother_intent, start_intent]
 
