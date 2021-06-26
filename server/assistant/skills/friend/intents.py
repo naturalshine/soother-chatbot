@@ -200,12 +200,12 @@ about_friend_intent = IntentBuilder("AboutFriend")\
     .build()
 
 positive_response_1_intent = IntentBuilder("PositiveResponseIntent")\
-    .require('Question1Context')
+    .require('Question1Context')\
     .require('PositiveKeyword')\
     .build()
 
 negative_response_1_intent = IntentBuilder('NegativeResponseIntent')\
-    .require('Question1Context')
+    .require('Question1Context')\
     .require('NegativeKeyword')\
     .build()
 
