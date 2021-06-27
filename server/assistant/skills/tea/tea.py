@@ -126,18 +126,7 @@ class tea_skill(Skill):
 				'file': "11",
 				'response': rep    
 			})
-		elif intent_type == 'MenuIntent':
-			self.ContextManager.clear_context()
-			cherrypy.session["activeSkill"] = ""
-			cherrypy.session["LastUtteranceCount"] = 0
-			print(cherrypy.session["RolePlayContext"])
-			# trigger menu skill here
-			menu = intent["MenuKeyword"]
-			NewBrain = Brain()
-			response = NewBrain.handle_from_skill(text)
 
-		cherrypy.session["LastUtterance"] = response
-		return response
 
 
 	def handle(self, text, **kwargs):

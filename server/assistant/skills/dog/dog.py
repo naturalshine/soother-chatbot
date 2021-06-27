@@ -244,7 +244,7 @@ class dog_skill(Skill):
 			cherrypy.lib.sessions.expire()
 			rep = f"Bye! Thanks for a great session."
 			response.append({
-				'file': "11",
+				'file': "31",
 				'response': rep    
 			})
 		elif intent_type == 'MenuIntent':
@@ -253,7 +253,7 @@ class dog_skill(Skill):
 			cherrypy.session["LastUtteranceCount"] = 0
 			rep = "We can have a therapy session, or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content. RuffRuff. Excuse me. RuffRuff. Someone's at the door. RuffRuff."
 			response.append({
-				'file': "12",
+				'file': "32",
 				'response': rep    
 			})
 
