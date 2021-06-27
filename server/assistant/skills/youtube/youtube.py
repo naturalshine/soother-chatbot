@@ -42,9 +42,10 @@ class youtube_skill(Skill):
 			})
 		
 		elif intent_type == "AboutAsmrIntent":
+			self.ContextManager.handle_add_context("FavoriteVideoContext")
 			response.append({
 				'file': "02",
-				'response':"ASMR is Autonomous Sensory Meridian Response. It describes a tingling in the scalp and spine in response to soft sounds like whispering, nail-tapping, or hair-brushing."    
+				'response':"ASMR is Autonomous Sensory Meridian Response. It describes a tingling in the scalp and spine in response to soft sounds like whispering, nail-tapping, or hair-brushing. Do you have a favorite kind of ASMR video?"    
 			})
 					
 
@@ -289,10 +290,28 @@ class youtube_skill(Skill):
 				'response': rep    
 			})
 		elif intent_type == 'MenuIntent':
-			# trigger menu skill here
-			menu = intent["MenuKeyword"]
-			NewBrain = Brain()
-			response = NewBrain.handle_from_skill(text)
+			self.ContextManager.clear_context()
+			cherrypy.session["activeSkill"] = ""
+			cherrypy.session["LastUtteranceCount"] = 0		
+			if cherrypy.session.get("RolePlayContext") == 'DogContext':
+				rep = "We can have a therapy session, or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content. RuffRuff. Excuse me. RuffRuff. Someone's at the door. RuffRuff."
+				response.append({
+					'file': "01",
+					'response': rep    
+				})
+			elif  cherrypy.session.get("RolePlayContext") == 'AlienContext':
+				rep = "Let me query my tentacles. I'm told these are the options: I can guide you through a meditation. Or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content."
+				response.append({
+					'file': "02",
+					'response': rep    
+				})
+			elif cherrypy.session.get("RolePlayContext") == 'FriendContext':
+				rep = "10 4. Shhhh. Lots of noise on our connection today. Shhhh. We can just chat over the radio, shhhh. Or I can tell you more about ASMR, shhhh. Tell you about SOOTHER, or recommend ASMR content. Shhh. Over."
+				response.append({
+					'file': "03",
+					'response': rep    
+				})
+
 
 		cherrypy.session["LastUtterance"] = response
 		return response

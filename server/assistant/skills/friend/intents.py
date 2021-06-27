@@ -12,7 +12,13 @@ start_keywords = [
     'play my friend',
     'be my friend',
     'start role play',
-    'start'
+    'start',
+    'restart',
+    'roll play',
+    'role play',
+    'chat',
+    'radio',
+    'play'
 ]
 
 negative_keywords = [
@@ -92,6 +98,11 @@ about_keywords = [
     'what\'s',
     'the deal',
     'more about'
+    'who',
+    'who are you',
+    'how do we know each other',
+    'how did we meet',
+    'meet'
 ]
 
 please_keywords = [
@@ -113,15 +124,24 @@ no_keywords = [
     'that\'s all',
     'nothing',
     'none',
+    'not really',
+    'not',
     'whatever',
-    'what are you going to do'
+    'what are you going to do',
+    'maybe'
 ]
 
 yes_keywords = [
     'yes',
     'ya',
     'yeah',
-    'ja'
+    'ja',
+    'totally',
+    'absolutely',
+    '100%',
+    'for sure',
+    'sure',
+    'ok'
 ]
 
 
@@ -199,6 +219,10 @@ about_friend_intent = IntentBuilder("AboutFriend")\
     .require('AboutKeyword')\
     .build()
 
+start_intent = IntentBuilder('StartIntent')\
+    .require('StartKeyword')\
+    .build()
+
 positive_response_1_intent = IntentBuilder("PositiveResponseIntent")\
     .require('Question1Context')\
     .require('PositiveKeyword')\
@@ -210,11 +234,13 @@ negative_response_1_intent = IntentBuilder('NegativeResponseIntent')\
     .build()
 
 life_explain_neg_intent = IntentBuilder('LifeExplainNegIntent')\
-    .require('Question2ContextNeg')\
+    .require('NegativeContext')\
+    .one_of('NoKeyword', 'YesKeyword')\
     .build()
 
 life_explain_posi_intent = IntentBuilder('LifeExplainPosiIntent')\
-    .require('Question2ContextPosi')\
+    .require('PositiveContext')\
+    .one_of('NoKeyword', 'YesKeyword')\
     .build()
 
 correct_guess_intent = IntentBuilder('CorrectGuessIntent')\
@@ -225,6 +251,7 @@ correct_guess_intent = IntentBuilder('CorrectGuessIntent')\
 
 wrong_guess_intent = IntentBuilder('WrongGuessIntent')\
     .require('TimeSlipContext')\
+    .one_of('NoKeyword', 'YesKeyword')\
     .build()
 
 i_know_intent = IntentBuilder('IKnowIntent')\
@@ -247,7 +274,10 @@ entities = {
     'SootherKeyword': soother_keywords,
     'CorrectGuessKeyword': correct_guess_keywords,
     'NegativeKeyword': negative_keywords,
-    'PositiveKeyword': positive_keywords
+    'PositiveKeyword': positive_keywords,
+    'StartKeyword': start_keywords,
+    'YesKeyword': yes_keywords,
+    'NoKeyword': no_keywords
 }
 
 # List of lists of regular expression entities
@@ -256,5 +286,5 @@ entities = {
 # List of regular expression entity strings
 single_regex_entities = [with_regex_keyword]
 
-skill_intents = [menu_intent, quit_intent, about_friend_intent, positive_response_1_intent, negative_response_1_intent, life_explain_neg_intent, life_explain_posi_intent, correct_guess_intent, wrong_guess_intent, i_know_intent, no_idea_intent]
+skill_intents = [menu_intent, quit_intent, about_friend_intent, start_intent, positive_response_1_intent, negative_response_1_intent, life_explain_neg_intent, life_explain_posi_intent, correct_guess_intent, wrong_guess_intent, i_know_intent, no_idea_intent]
 

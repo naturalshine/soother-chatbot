@@ -18,9 +18,7 @@ class Brain(object):
 
         skills_root_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'skills')
 
-        self.load_skill(skills_root_dir, 'spotify')
         self.load_skill(skills_root_dir, 'youtube')
-        self.load_skill(skills_root_dir, 'tea')
         self.load_skill(skills_root_dir, 'Menu')
         self.load_skill(skills_root_dir, 'Personality')
         self.load_skill(skills_root_dir, 'asmr')
@@ -28,7 +26,8 @@ class Brain(object):
         self.load_skill(skills_root_dir, 'dog')
         self.load_skill(skills_root_dir, 'friend')
         self.load_skill(skills_root_dir, 'alien')
-        
+        self.load_skill(skills_root_dir, 'tea')
+
         if online:
             from RecordingsDatabase import RecordingsDatabase
             from skills_assistant_tasks import initialize_recordings_database_task, initialize_skills_database_task

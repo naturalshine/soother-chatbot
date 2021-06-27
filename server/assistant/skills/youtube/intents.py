@@ -13,7 +13,9 @@ search_keywords = [
     'recommend',
     'look for',
     'look up',
-    'watch'
+    'watch',
+    'youtube',
+    'video'
 ]
 
 

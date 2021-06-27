@@ -15,6 +15,7 @@ asmr_keywords = [
 
 
 triggers_keywords = [
+    'trigger',
     'whispering',
     'nail',
     'hair',
@@ -60,7 +61,8 @@ therapy_keywords = [
     'calming',
     'calm',
     'meditative',
-    'caring'
+    'caring',
+    'why'
 ]
 
 about_keywords = [
@@ -127,19 +129,8 @@ history_keywords = [
     'history',
     'started',
     'come from',
-    'how long'
-]
-
-example_keywords = [
-    'show me',
-    'can I see', 
-    'watch', 
-    'recommend',
-    'listen to',
-    'what is it like',
-    'example',
-    'demo', 
-    'content'
+    'how long',
+    'who'
 ]
 
 #appointment_regex_keywords = ['{} (?P<Appointment>(?:(?!with|at).)*)'.format(keyword)
@@ -165,11 +156,7 @@ about_asmr_intent = IntentBuilder("AboutAsmrIntent")\
     .require('AsmrKeyword')\
     .build()
 
-example_intent = IntentBuilder("ExampleIntent")\
-    .require('AsmrContext')\
-    .require('ExampleKeyword')\
-    .optionally('AsmrKeyword')\
-    .build()
+
 
 menu_intent = IntentBuilder('MenuIntent')\
     .require('MenuKeyword')\
@@ -203,7 +190,6 @@ entities = {
     'TherapyKeyword': therapy_keywords,
     'TriggerKeyword': triggers_keywords,
     'HistoryKeyword': history_keywords,
-    'ExampleKeyword': example_keywords
 }
 
 # List of lists of regular expression entities
@@ -212,5 +198,5 @@ entities = {
 # List of regular expression entity strings
 single_regex_entities = [with_regex_keyword]
 
-skill_intents = [menu_intent, history_intent, example_intent, therapeutic_intent, trigger_intent, about_asmr_intent, quit_intent]
+skill_intents = [menu_intent, history_intent, therapeutic_intent, trigger_intent, about_asmr_intent, quit_intent]
 

@@ -41,9 +41,8 @@ class Menu_skill(Skill):
 		elif intent_type == 'DogMenuIntent':
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0			
-			# trigger menu skill here
 			menu = intent["MenuKeyword"]
-			rep = "I'm your dog, I'm your therapist, here are your options: I can play your therapist, tell you more about myself, tell you about SOOTHER, or recommend ASMR content."
+			rep = "We can have a therapy session, or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content. RuffRuff. Excuse me. RuffRuff. Someone's at the door. RuffRuff."
 			response.append({
 				'file': "01",
 				'response': rep    
@@ -51,9 +50,8 @@ class Menu_skill(Skill):
 		elif intent_type == 'AlienMenuIntent':
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0			
-			# trigger menu skill here
 			menu = intent["MenuKeyword"]
-			rep = "I'm an alien, I'm on your head. Here are your options: we can have a head-sitting session, or I can tell you more about myself, tell you about SOOTHER, or recommend ASMR content."
+			rep = "Let me query my tentacles. I'm told these are the options: I can guide you through a meditation. Or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content."
 			response.append({
 				'file': "02",
 				'response': rep    
@@ -61,9 +59,8 @@ class Menu_skill(Skill):
 		elif intent_type == 'FriendMenuIntent':
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0			
-			# trigger menu skill here
 			menu = intent["MenuKeyword"]
-			rep = "I'm your friend, I'm trapped in time. Here are your options: we can just chat over the radio, or I can tell you more about myself, tell you about SOOTHER, or recommend ASMR content."
+			rep = "10 4. Shhhh. Lots of noise on our connection today. Shhhh. We can just chat over the radio, shhhh. Or I can tell you more about ASMR, shhhh. Tell you about SOOTHER, or recommend ASMR content. Shhh. Over."
 			response.append({
 				'file': "03",
 				'response': rep    

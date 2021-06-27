@@ -54,7 +54,13 @@ epistem_keywords = [
     'what',
     'what are',
     'what is',
-    'who'
+    'who',
+    'about',
+    'tell me',
+    'what is',
+    'what\'s',
+    'the deal',
+    'more about'
 ]
 
 why_keywords = [
@@ -70,14 +76,7 @@ how_keywords = [
     'tools'
 ]
 
-about_keywords = [
-    'about',
-    'tell me',
-    'what is',
-    'what\'s',
-    'the deal',
-    'more about'
-]
+
 
 actually_keywords = [
     'really',
@@ -167,8 +166,8 @@ menu_intent = IntentBuilder('MenuIntent')\
     .build()
 
 what_soother_intent = IntentBuilder('WhatSootherIntent')\
-    .require('SootherKeyword')\
     .require('EpistemKeyowrd')\
+    .require('SootherKeyword')\
     .optionally('OriginKeyword')\
     .build()
 
@@ -225,7 +224,8 @@ entities = {
     'WhoKeyword': who_keywords,
     'EpistemKeyword': epistem_keywords,
     'ClaireKeyword': claire_keywords,
-    'ActuallyKeyword': actually_keywords
+    'ActuallyKeyword': actually_keywords,
+    'SootherKeyword': soother_keywords
 }
 
 # List of lists of regular expression entities

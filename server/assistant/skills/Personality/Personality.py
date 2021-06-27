@@ -31,13 +31,19 @@ class Personality_skill(Skill):
 		intent_type = intent['intent_type']
 		cherrypy.log(intent_type)
 		if intent_type == 'ChangeRoleIntent':
-			rep = "I can play a dog who's your therapist, an alien sitting on your head, or your friend who is trapped in time. Which would you like?"
+			rep = "I can play a dog who's your therapist, an alien sitting on your head, or your friend who is trapped in time. What would you like me to be?"
+			response.append({
+				'file': "0",
+				'response': rep    
+			})
+		elif intent_type == 'StartIntent':
+			rep = "Greetings! I can play a dog who's your therapist, an alien sitting on your head, or your friend who is trapped in time. What would you like me to be?"
 			response.append({
 				'file': "0",
 				'response': rep    
 			})
 		elif intent_type == 'RolePlayIntent':
-			rep = "I can play a dog who's your therapist, an alien sitting on your head, or your friend who is trapped in time. Which would you like?"
+			rep = "I can play a dog who's your therapist, an alien perched on your head, or your friend who slips through time. What would you like me to be?"
 			response.append({
 				'file': "0",
 				'response': rep    
@@ -55,7 +61,7 @@ class Personality_skill(Skill):
 			cherrypy.session["RolePlayContext"] = "AlienContext"
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0
-			rep = "I'm an alien and I'm sitting on your head. What would you like to do?"
+			rep = "I'm an alien and I'm on your head. What would you like to do?"
 			response.append({
 				'file': "02",
 				'response': rep    
@@ -77,11 +83,7 @@ class Personality_skill(Skill):
 				'file': "04",
 				'response': rep    
 			})
-		elif intent_type == 'MenuIntent':
-			# trigger menu skill here
-			menu = intent["MenuKeyword"]
-			NewBrain = Brain()
-			response = NewBrain.handle_from_skill(text)
+
 
 		cherrypy.session["LastUtterance"] = response
 		return response

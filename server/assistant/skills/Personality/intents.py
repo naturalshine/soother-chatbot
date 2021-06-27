@@ -5,6 +5,24 @@ This module creates intent parsers for the adapt engine.
 """
 from adapt.intent import IntentBuilder
 
+begin_keywords = [
+    'start',
+    'restart',
+    'begin',
+    'become',
+    'hi',
+    'hello',
+    'greetings'
+]
+
+soother_keywords = [
+    'soother',
+    'ai',
+    'siri',
+    'google',
+    'alexa',
+    'you'
+]
 
 # General purpose keywords
 switch_keywords = [
@@ -15,6 +33,9 @@ switch_keywords = [
 play_keywords = [
     'play',
     'role play',
+    'roll play',
+    'roll',
+    'role',
     'act like',
     'pretend'
 ]
@@ -88,6 +109,11 @@ menu_intent = IntentBuilder('MenuIntent')\
     .optionally('PleaseKeyword')\
     .build()
 
+start_intent = IntentBuilder('StartIntent')\
+    .require('BeginKeyword')\
+    .optionally('SootherKeyword')\
+    .build()
+
 change_intent = IntentBuilder('ChangeRoleIntent')\
     .require('SwitchKeyword')\
     .optionally('DifferentKeyword')\
@@ -121,7 +147,9 @@ entities = {
     'DifferentKeyword': different_keywords,
     'DogKeyword': dog_keywords,
     'AlienKeyword': alien_keywords,
-    'FriendKeyword': friend_keywords
+    'FriendKeyword': friend_keywords,
+    'BeginKeyword': begin_keywords, 
+    'SootherKeyword': soother_keywords
 }
 # List of lists of regular expression entities
 #multi_regex_entities = [todo_regex_keywords, appointment_regex_keywords,
@@ -129,5 +157,5 @@ entities = {
 # List of regular expression entity strings
 single_regex_entities = [with_regex_keyword]
 
-skill_intents = [change_intent, play_intent, dog_intent, alien_intent, friend_intent, quit_intent, menu_intent]
+skill_intents = [change_intent, play_intent, dog_intent, alien_intent, friend_intent, quit_intent, menu_intent, start_intent]
 

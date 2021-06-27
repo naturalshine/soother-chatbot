@@ -7,83 +7,84 @@ from adapt.intent import IntentBuilder
 
 
 start_keywords = [
-    'friend',
+    'alien',
     'time-travel',
     'play my friend',
     'be my friend',
     'start role play',
-    'start'
+    'restart',
+    'start',
+    'alien roll play',
+    'role play',
+    'roll play',
+    'meditation',
+    'meditate'
 ]
 
-negative_keywords = [
-    'sad',
-    'lonely',
-    'alone',
-    'bored',
-    'anxious',
-    'angry',
-    'annoyed',
-    'upset',
-    'afraid',
-    'anxiety',
-    'lonely',
-    'so-so',
-    'not good',
-    'not so good',
-    'ok',
-    'whatever'
+birchwood_keywords = [
+    'birch',
+    'wood',
+    'trees',
+    'forest',
+    'woods',
+    'birchwood',
+    'birchwoods'
+
 ]
 
-positive_keywords = [
-    'good',
-    'excellent',
-    'great',
-    'happy',
-    'just fine',
-    'perfect',
-    'vibing',
-    'fabulous',
-    'super',
-    'amazing',
-    'demented',
-    'delirious'
+homeplanet_keywords = [
+    'planet',
+    'center of earth',
+    'home planet'
 ]
 
-therapy_keywords = [
-    'life',
-    'what am I doing',
-    'what should I do',
-    'existential crisis',
-    'isolation',
-    'I don\'t know',
-    'don\'t know',
-    'what could I do'
+smell_keywords = [
+    'smell',
+    'scent',
+    'smells'
 ]
 
-existential_keywords = [
-    'what is a good life',
-    'what is life',
-    'why are we here',
-    'what is to be done',
-    'how should i live?',
-    'live',
-    'life',
-    'alive',
-    'good person',
-    'good human',
-    'why',
-    'who am I',
-    'who is anyone',
-    'what is',
-    'time',
-    'every day',
-    'all the time'
+
+sound_keywords = [
+    'sound',
+    'sounds'
 ]
 
-help_keywords = [
-    'help',
-    'help me'
+sensation_keywords = [
+    'feels',
+    'sensation',
+    'feel'
+
 ]
+
+norain_keywords = [
+    'no',
+    'no rain',
+    'not raining'
+
+]
+
+
+rain_keywords = [
+    'rain',
+    'raining',
+    'water',
+    'wet'
+]
+
+sun_keywords = [
+    'sun',
+    'light',
+    'full sun'
+]
+
+shade_keywords = [
+    'shade',
+    'partial shade',
+    'full shade',
+    'partial'
+]
+
 
 about_keywords = [
     'about',
@@ -92,16 +93,6 @@ about_keywords = [
     'what\'s',
     'the deal',
     'more about'
-]
-
-please_keywords = [
-    'please',
-    'bitte'
-]
-
-thanks_keywords = [
-    'thanks',
-    'thank you'
 ]
 
 no_keywords = [
@@ -141,16 +132,6 @@ soother_keywords = [
     'soother'
 ]
 
-correct_guess_keywords = [
-    'behind you',
-    'behind',
-    'in my house',
-    'next to me',
-    'close to me',
-    'in my room'
-
-]
-
 
 menu_keywords = [
     'menu',
@@ -158,18 +139,11 @@ menu_keywords = [
     'something else',
     'what are my options',
     'what else',
-    'what can you do'
+    'what can you do',
+    'help'
 ]
 
-history_keywords = [
-    'where does it come from',
-    'history',
-    'started',
-    'come from',
-    'how long',
-    'time passes',
-    'life goes on'
-]
+
 
 
 #appointment_regex_keywords = ['{} (?P<Appointment>(?:(?!with|at).)*)'.format(keyword)
@@ -195,46 +169,67 @@ menu_intent = IntentBuilder('MenuIntent')\
     .optionally('PleaseKeyword')\
     .build()
 
-about_friend_intent = IntentBuilder("AboutFriend")\
+about_alien_intent = IntentBuilder("AboutAlien")\
     .require('AboutKeyword')\
     .build()
 
-positive_response_1_intent = IntentBuilder("PositiveResponseIntent")\
+
+start_intent = IntentBuilder('StartIntent')\
+    .require('StartKeyword')\
+    .build()
+
+birchwood_first_intent = IntentBuilder("BirchwoodFirstIntent")\
     .require('Question1Context')\
-    .require('PositiveKeyword')\
+    .require('BirchwoodKeyword')\
     .build()
 
-negative_response_1_intent = IntentBuilder('NegativeResponseIntent')\
-    .require('Question1Context')\
-    .require('NegativeKeyword')\
+birchwood_shade_intent = IntentBuilder('BirchwoodShadeIntent')\
+    .require('ShadeKeyword')\
     .build()
 
-life_explain_neg_intent = IntentBuilder('LifeExplainNegIntent')\
-    .require('Question2ContextNeg')\
+birchwood_sun_intent = IntentBuilder('BirchwoodSunIntent')\
+    .require('SunKeyword')\
     .build()
 
-life_explain_posi_intent = IntentBuilder('LifeExplainPosiIntent')\
-    .require('Question2ContextPosi')\
+birchwood_sound_intent = IntentBuilder('BirchwoodSoundIntent')\
+    .require('BirchwoodSunContext')\
+    .require('SoundKeyword')\
+    .optionally('YesKeyword')\
     .build()
 
-correct_guess_intent = IntentBuilder('CorrectGuessIntent')\
-    .require('TimeSlipContext')\
-    .require('CorrectGuessKeyword')\
-    .optionally('SootherKeyword')\
+birchwood_smell_intent = IntentBuilder('BirchwoodSmellIntent')\
+    .require('BirchwoodSunContext')\
+    .require('SmellKeyword')\
+    .optionally('NoKeyword')\
     .build()
 
-wrong_guess_intent = IntentBuilder('WrongGuessIntent')\
-    .require('TimeSlipContext')\
-    .build()
-
-i_know_intent = IntentBuilder('IKnowIntent')\
+birchwood_rain_intent = IntentBuilder('BirchwoodRainIntent')\
+    .require('BirchwoodShadeContext')\
     .require('YesKeyword')\
-    .require('TimeSlipFinalContext')\
+    .optionally('RainKeyword')\
     .build()
 
-no_idea_intent = IntentBuilder('NoIdeaIntent')\
+
+birchwood_norain_intent = IntentBuilder('BirchwoodNoRainIntent')\
+    .require('BirchwoodShadeContext')\
     .require('NoKeyword')\
-    .require('TimeSlipFinalContext')\
+    .optionally('NoRainKeyword')\
+    .build()
+
+
+homeplanet_intent = IntentBuilder('HomePlanetIntent')\
+    .require('Question1Context')\
+    .require('HomePlanetKeyword')\
+    .build()
+
+homeplanet_sound_intent = IntentBuilder('HomePlanetSoundIntent')\
+    .require('HomePlanetContext')\
+    .require('SoundKeyword')\
+    .build()
+
+homeplanet_sensation_intent = IntentBuilder('HomePlanetSensationIntent')\
+    .require('HomePlanetContext')\
+    .require('SensationKeyword')\
     .build()
 
 
@@ -244,10 +239,19 @@ entities = {
     'ExitKeyword': exit_keywords,
     'MenuKeyword': menu_keywords, 
     'AboutKeyword': about_keywords,
+    'StartKeyword': start_keywords,
+    'BirchwoodKeyword': birchwood_keywords,
+    'NoRainKeyword': norain_keywords,
+    'RainKeyword': rain_keywords, 
+    'YesKeyword': yes_keywords,
+    'NoKeyword': no_keywords, 
+    'SmellKeyword': smell_keywords,
+    'SoundKeyword': sound_keywords, 
+    'SensationKeyword': sensation_keywords,
+    'HomePlanetKeyword': homeplanet_keywords,
     'SootherKeyword': soother_keywords,
-    'CorrectGuessKeyword': correct_guess_keywords,
-    'NegativeKeyword': negative_keywords,
-    'PositiveKeyword': positive_keywords
+    'ShadeKeyword': shade_keywords,
+    'SunKeyword': sun_keywords
 }
 
 # List of lists of regular expression entities
@@ -256,5 +260,5 @@ entities = {
 # List of regular expression entity strings
 single_regex_entities = [with_regex_keyword]
 
-skill_intents = [menu_intent, quit_intent, about_friend_intent, positive_response_1_intent, negative_response_1_intent, life_explain_neg_intent, life_explain_posi_intent, correct_guess_intent, wrong_guess_intent, i_know_intent, no_idea_intent]
+skill_intents = [menu_intent, quit_intent, about_alien_intent, start_intent, birchwood_first_intent, birchwood_norain_intent, birchwood_rain_intent, birchwood_smell_intent, birchwood_sound_intent, birchwood_sun_intent, birchwood_shade_intent, homeplanet_intent, homeplanet_sensation_intent, homeplanet_sound_intent]
 

@@ -42,7 +42,7 @@ class asmr_skill(Skill):
 				'file': "01",
 				'response': rep    
 			})		
-		elif intent_type == 'TherapyIntent':
+		elif intent_type == 'TherapeuticIntent':
 			rep = "Many people watch ASMR videos for the calming effects of the slow and soft sounds. Content of ASMR videos is often focused on relieving insomnia and anxiety."
 			response.append({
 				'file': "02",
@@ -54,14 +54,6 @@ class asmr_skill(Skill):
 				'file': "03",
 				'response': rep    
 			})
-		elif intent_type == 'ExampleIntent':
-			NewBrain = Brain()
-			text = "asmr example video"
-			r = NewBrain.handle_from_skill(text)
-			r['file'] = '04'
-			r['response'] = "Here's an example ASMR video."
-			cherrypy.session["activeSkill"] = ""
-			response = r
 		elif intent_type == 'QuitIntent':
 			self.ContextManager.clear_context()
 			cherrypy.lib.sessions.expire()
@@ -71,10 +63,28 @@ class asmr_skill(Skill):
 				'response': rep    
 			})
 		elif intent_type == 'MenuIntent':
-			# trigger menu skill here
-			menu = intent["MenuKeyword"]
-			NewBrain = Brain()
-			response = NewBrain.handle_from_skill(text)
+			self.ContextManager.clear_context()
+			cherrypy.session["activeSkill"] = ""
+			cherrypy.session["LastUtteranceCount"] = 0		
+			if cherrypy.session.get("RolePlayContext") == 'DogContext':
+				rep = "We can have a therapy session, or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content. RuffRuff. Excuse me. RuffRuff. Someone's at the door. RuffRuff."
+				response.append({
+					'file': "01",
+					'response': rep    
+				})
+			elif  cherrypy.session.get("RolePlayContext") == 'AlienContext':
+				rep = "Let me query my tentacles. I'm told these are the options: I can guide you through a meditation. Or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content."
+				response.append({
+					'file': "02",
+					'response': rep    
+				})
+			elif cherrypy.session.get("RolePlayContext") == 'FriendContext':
+				rep = "10 4. Shhhh. Lots of noise on our connection today. Shhhh. We can just chat over the radio, shhhh. Or I can tell you more about ASMR, shhhh. Tell you about SOOTHER, or recommend ASMR content. Shhh. Over."
+				response.append({
+					'file': "03",
+					'response': rep    
+				})
+
 
 		cherrypy.session["LastUtterance"] = response
 		return response

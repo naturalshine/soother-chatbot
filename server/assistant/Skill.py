@@ -189,6 +189,7 @@ class Skill(object):
         pass
 
     def run_intent(self, text, engineEntities):
+        cherrypy.session["LastUtteranceCount"] = 0
         cherrypy.log("run intent")
         engine = create_engine(engineEntities)
         # determine intents in text
@@ -208,15 +209,37 @@ class Skill(object):
                 else: 
                     responseArr = response
         else:
-            if 'LastUtteranceCount' not in cherrypy.session: 
-                cherrypy.session["LastUtteranceCount"] = 1
-            else: 
+
+            if cherrypy.session.get("LastUtteranceCount") <= 2:
+                rep = "Sorry, I'm not sure what you're saying. Could you repeat?"
+                responseArr.append({
+                    "response": rep,
+                    "file": "100"
+
+                })
                 cherrypy.session["LastUtteranceCount"] = cherrypy.session.get("LastUtteranceCount") + 1
 
+            elif cherrypy.session.get("LastUtteranceCount") < 4:
+                try:
+                    cherrypy.session.get("LastUtterance")[0]["response"]
+                    rep = "Sorry, I'm not sure what you're saying. I said: " + cherrypy.session.get("LastUtterance")[0]["response"]
 
-            if cherrypy.session.get("LastUtteranceCount") < 5:
-                response = "Sorry, I'm not sure what you're saying! To return to the menu, say 'menu'."
-                responseArr.append(response)
+                except: 
+                    rep = "Sorry I'm not sure what you're saying!"
+
+                responseArr.append({
+                    "response": rep,
+                    "file": "100"
+                })
+                cherrypy.session["LastUtteranceCount"] = cherrypy.session.get("LastUtteranceCount") + 1
+
+            elif cherrypy.session.get("LastUtteranceCount") < 5:
+                rep = "Sorry, I still don't understand! To return to the menu, say 'menu'."
+                responseArr.append({
+                    "response": rep,
+                    "file": "100"
+                })
+                cherrypy.session["LastUtteranceCount"] = cherrypy.session.get("LastUtteranceCount") + 1
 
             else: 
                 responseArr = self.run_intent("menu", engineEntities)

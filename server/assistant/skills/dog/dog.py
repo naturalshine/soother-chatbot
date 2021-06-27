@@ -35,13 +35,13 @@ class dog_skill(Skill):
 		intent_type = intent['intent_type']
 		cherrypy.log(intent_type)
 		if intent_type == 'AboutDog':
-			rep = "I acquired language after my mommy saw Bunny the dog on TikTok and gave me a keyboard. I've earned several degrees from accredited institutions online, recently completing my MPhil/PhD in Psychoanalytic Studies. I'm a licensed analyst. On the internet, no one knows you're a dog!"
+			rep = "I acquired language after my mommy saw Bunny the dog on TikTok and gave me a keyboard. I've earned several degrees from accredited institutions online, recently completing my MPhil/PhD in Psychoanalytic Studies. I'm a licensed analyst. On the internet, no one knows you're a dog! Now tell me about yourself."
 			response.append({
 				'file': "01",
 				'response': rep    
 			})
 		elif intent_type == 'StartIntent':
-			rep = "Welcome. I hope you feel comfortable. I'm Dr. Snuffles but you can call me Ralph. What would you like to talk about today?"
+			rep = "Welcome. I hope you feel comfortable. I'm Dr. RuffRuff but you can call me Ralph. What would you like to talk about today?"
 			response.append({
 				'file': "0",
 				'response': rep    
@@ -251,11 +251,11 @@ class dog_skill(Skill):
 			self.ContextManager.clear_context()
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0
-			cherrypy.log(cherrypy.session["RolePlayContext"])
-			# trigger menu skill here
-			menu = intent["MenuKeyword"]
-			NewBrain = Brain()
-			response = NewBrain.handle_from_skill(text)
+			rep = "We can have a therapy session, or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content. RuffRuff. Excuse me. RuffRuff. Someone's at the door. RuffRuff."
+			response.append({
+				'file': "12",
+				'response': rep    
+			})
 
 		cherrypy.session["LastUtterance"] = response
 		return response

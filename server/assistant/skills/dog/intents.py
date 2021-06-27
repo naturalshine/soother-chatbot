@@ -15,7 +15,13 @@ start_keywords = [
     'be my therapist',
     'be my dog',
     'start role play',
-    'start'
+    'start',
+    'restart',
+    'roll play',
+    'role play',
+    'therapy session',
+    'session',
+    'therapy'
 ]
 
 feeling_keywords = [
@@ -29,7 +35,8 @@ feeling_keywords = [
     'angry',
     'annoyed',
     'upset',
-    'afraid'
+    'afraid',
+    'anxiety'
 ]
 
 therapy_keywords = [
@@ -40,7 +47,10 @@ therapy_keywords = [
     'isolation',
     'I don\'t know',
     'don\'t know',
-    'what could I do'
+    'what could I do',
+    'point',
+    'figure',
+    'dont know'
 ]
 
 existential_keywords = [
@@ -57,7 +67,12 @@ existential_keywords = [
     'why',
     'who am I',
     'who is anyone',
-    'what is'
+    'what is',
+    'I am',
+    'i am',
+    'how',
+    'what to do'
+
 ]
 
 help_keywords = [
@@ -189,7 +204,7 @@ no_intent = IntentBuilder('NoIntent')\
     .require('NoKeyword')\
     .build()
 
-soother_intent = IntentBuilder('SootherKeyword')\
+soother_intent = IntentBuilder('SootherIntent')\
     .require('SootherKeyword')\
     .build()
 
