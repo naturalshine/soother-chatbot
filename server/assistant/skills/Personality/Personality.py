@@ -37,7 +37,7 @@ class Personality_skill(Skill):
 				'response': rep    
 			})
 		elif intent_type == 'StartIntent':
-			rep = "Greetings! I can play a dog who's your therapist, an alien sitting on your head, or your friend who is trapped in time. What would you like me to be?"
+			rep = "Greetings! I'm SOOTHER, an AI voice companion. Like all AMSRtists, I play many personas. Today I can be a dog therapist, an alien, or your time-traveling friend. What would you like me to be?"
 			response.append({
 				'file': "0",
 				'response': rep    

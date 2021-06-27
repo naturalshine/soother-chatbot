@@ -38,14 +38,28 @@ class youtube_skill(Skill):
 			self.ContextManager.handle_add_context("FavoriteVideoContext")
 			response.append({
 				'file': "01",
-				'response': "Do you have a favorite kind of ASMR video?"
+				'response': "Do you have a favorite kind of ASMR video?",
+				'title': '',
+				'description': '',
+				'url': ''
 			})
-		
+		elif intent_type == 'StartIntent':
+			self.ContextManager.handle_add_context("FavoriteVideoContext")
+			response.append({
+				'file': "01",
+				'response': "Do you have a favorite kind of ASMR video?",
+				'title': '',
+				'description': '',
+				'url': ''
+			})
 		elif intent_type == "AboutAsmrIntent":
 			self.ContextManager.handle_add_context("FavoriteVideoContext")
 			response.append({
 				'file': "02",
-				'response':"ASMR is Autonomous Sensory Meridian Response. It describes a tingling in the scalp and spine in response to soft sounds like whispering, nail-tapping, or hair-brushing. Do you have a favorite kind of ASMR video?"    
+				'response':"ASMR is Autonomous Sensory Meridian Response. It describes a tingling in the scalp and spine in response to soft sounds like whispering, nail-tapping, or hair-brushing. Do you have a favorite kind of ASMR video?",    
+				'title': '',
+				'description': '',
+				'url': ''
 			})
 					
 
@@ -54,7 +68,10 @@ class youtube_skill(Skill):
 			rep = "What is it?"
 			response.append({
 				'file': "03",
-				'response': rep    
+				'response': rep,
+				'title': '',
+				'description': '',
+				'url': ''
 			})
 		elif intent_type == 'YesFavoriteVideoIntent':
 			self.ContextManager.remove_context("FavoriteVideoContext")
@@ -71,14 +88,20 @@ class youtube_skill(Skill):
 				rep = f"I also love {self.favoriteGenre}. Would you like to watch that?"
 				response.append({
 					'file': "04",
-					'response': rep    
+					'response': rep,
+					'title': '',
+					'description': '',
+					'url': ''
 				})
 			else: 
 				self.favoriteGenre = text
 				rep = "I love that too! Would you like to watch one of those?"
 				response.append({
 					'file': "05",
-					'response': rep    
+					'response': rep,
+					'title': '',
+					'description': '',
+					'url': ''
 				})
 		elif intent_type == 'NoFavoriteVideoIntent':
 			self.ContextManager.remove_context("FavoriteVideoContext")
@@ -86,7 +109,10 @@ class youtube_skill(Skill):
 			rep = "No problem. Sometimes it's good to start with a medeley of ASMR triggers. Would you like to watch one of those?"
 			response.append({
 				'file': "06",
-				'response': rep    
+				'response': rep,
+				'title': '',
+				'description': '',
+				'url': ''
 			})
 		elif intent_type == "WatchFavoriteVideoIntent":
 			self.ContextManager.remove_context("WatchFavoriteVideoContext")
@@ -119,7 +145,10 @@ class youtube_skill(Skill):
 			rep = "No problem. I love role-play videos. Would you like to watch one of those?"
 			response.append({
 				'file': "08",
-				'response': rep    
+				'response': rep,
+				'title': '',
+				'description': '',
+				'url': ''
 			})
 
 		elif intent_type == "YesRolePlayVideoIntent":
@@ -128,7 +157,10 @@ class youtube_skill(Skill):
 			rep = "What's your favorite role play type?"
 			response.append({
 				'file': "09",
-				'response': rep    
+				'response': rep,
+				'title': '',
+				'description': '',
+				'url': ''
 			})
 		elif intent_type == "NoRolePlayVideoIntent":
 			self.ContextManager.remove_context("RolePlayContext")
@@ -136,7 +168,10 @@ class youtube_skill(Skill):
 			rep = "I get it, role plays can be annoying. How an hour of nails tapping?"
 			response.append({
 				'file': "10",
-				'response': rep    
+				'response': rep,
+				'title': '',
+				'description': '',
+				'url': ''
 			})
 
 		elif intent_type == "RolePlayGenreIntent":
@@ -229,7 +264,10 @@ class youtube_skill(Skill):
 			rep = "How about an hour of nail-tapping?"
 			response.append({
 				'file': "14",
-				'response': rep    
+				'response': rep,
+				'title': '',
+				'description': '',
+				'url': ''
 			})
 		elif intent_type == "YesNailsVideoIntent":
 			self.ContextManager.remove_context("NailTappingVideo")
@@ -287,7 +325,10 @@ class youtube_skill(Skill):
 			rep = f"Goodbye!"
 			response.append({
 				'file': "17",
-				'response': rep    
+				'response': rep,
+				'title': '',
+				'description': '',
+				'url': ''
 			})
 		elif intent_type == 'MenuIntent':
 			self.ContextManager.clear_context()
@@ -297,21 +338,29 @@ class youtube_skill(Skill):
 				rep = "We can have a therapy session, or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content. RuffRuff. Excuse me. RuffRuff. Someone's at the door. RuffRuff."
 				response.append({
 					'file': "01",
-					'response': rep    
+					'response': rep,
+					'title': '',
+					'description': '',
+					'url': ''
 				})
 			elif  cherrypy.session.get("RolePlayContext") == 'AlienContext':
 				rep = "Let me query my tentacles. I'm told these are the options: I can guide you through a meditation. Or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content."
 				response.append({
 					'file': "02",
-					'response': rep    
+					'response': rep,
+					'title': '',
+					'description': '',
+					'url': ''
 				})
 			elif cherrypy.session.get("RolePlayContext") == 'FriendContext':
 				rep = "10 4. Shhhh. Lots of noise on our connection today. Shhhh. We can just chat over the radio, shhhh. Or I can tell you more about ASMR, shhhh. Tell you about SOOTHER, or recommend ASMR content. Shhh. Over."
 				response.append({
 					'file': "03",
-					'response': rep    
+					'response': rep,
+					'title': '',
+					'description': '',
+					'url': ''
 				})
-
 
 		cherrypy.session["LastUtterance"] = response
 		return response

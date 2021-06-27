@@ -25,12 +25,14 @@ video_keywords = [
     'youtube',
     'vid',
     'vlog',
-    'role play'
+    'role play',
+    'content'
 ]
 
 asmr_keywords = [
     'tingles',
     'asmr',
+    'ASMR',
     'autonomous sensory meridian response',
     'braingasm'
 ]
@@ -147,7 +149,9 @@ exit_keywords = [
     'quit',
     'goodbye',
     'later',
-    'farewell'
+    'farewell',
+    'Quit',
+    'Exit'
 ]
 
 
@@ -186,13 +190,17 @@ about_asmr_intent = IntentBuilder("AboutAsmrIntent")\
     .build()
 
 
+start_intent = IntentBuilder('StartIntent')\
+    .one_of('AsmrKeyword','VideoKeyword')\
+    .build()
+
 menu_intent = IntentBuilder('MenuIntent')\
     .require('MenuKeyword')\
     .optionally('PleaseKeyword')\
     .build()
 
 search_intent = IntentBuilder('SearchIntent')\
-    .optionally('SearchKeyword')\
+    .require('SearchKeyword')\
     .require('AsmrKeyword')\
     .optionally('GenreKeyword')\
     .optionally('PleaseKeyword')\
@@ -292,5 +300,5 @@ entities = {
 # List of regular expression entity strings
 single_regex_entities = [with_regex_keyword]
 
-skill_intents = [search_intent, menu_intent, favorite_video_intent,yes_favorite_video_intent,  no_favorite_video_intent, watch_favorite_video_intent, no_watch_favorite_video_intent, yes_role_play_video_intent, no_role_play_video_intent, role_play_genre_intent, no_role_play_genre_intent, yes_trigger_video_intent, no_trigger_video_intent, yes_nails_trigger_intent, no_nails_trigger_intent, about_asmr_intent, quit_intent]
+skill_intents = [search_intent, menu_intent, start_intent, favorite_video_intent,yes_favorite_video_intent,  no_favorite_video_intent, watch_favorite_video_intent, no_watch_favorite_video_intent, yes_role_play_video_intent, no_role_play_video_intent, role_play_genre_intent, no_role_play_genre_intent, yes_trigger_video_intent, no_trigger_video_intent, yes_nails_trigger_intent, no_nails_trigger_intent, about_asmr_intent, quit_intent]
 

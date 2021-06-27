@@ -213,9 +213,11 @@ class Skill(object):
             if cherrypy.session.get("LastUtteranceCount") <= 2:
                 rep = "Sorry, I'm not sure what you're saying. Could you repeat?"
                 responseArr.append({
-                    "response": rep,
                     "file": "100"
-
+                    'response': rep,
+                    'title': '',
+                    'description': '',
+                    'url': ''
                 })
                 cherrypy.session["LastUtteranceCount"] = cherrypy.session.get("LastUtteranceCount") + 1
 
@@ -228,16 +230,22 @@ class Skill(object):
                     rep = "Sorry I'm not sure what you're saying!"
 
                 responseArr.append({
-                    "response": rep,
                     "file": "100"
+                    'response': rep,
+                    'title': '',
+                    'description': '',
+                    'url': ''
                 })
                 cherrypy.session["LastUtteranceCount"] = cherrypy.session.get("LastUtteranceCount") + 1
 
             elif cherrypy.session.get("LastUtteranceCount") < 5:
                 rep = "Sorry, I still don't understand! To return to the menu, say 'menu'."
                 responseArr.append({
-                    "response": rep,
                     "file": "100"
+                    'response': rep,
+                    'title': '',
+                    'description': '',
+                    'url': ''
                 })
                 cherrypy.session["LastUtteranceCount"] = cherrypy.session.get("LastUtteranceCount") + 1
 

@@ -168,14 +168,12 @@ menu_intent = IntentBuilder('MenuIntent')\
 what_soother_intent = IntentBuilder('WhatSootherIntent')\
     .require('EpistemKeyowrd')\
     .require('SootherKeyword')\
-    .optionally('OriginKeyword')\
     .build()
 
 what_soother_really_intent = IntentBuilder('WhatSootherReallyIntent')\
     .require("ActuallyKeyword")\
     .require("SootherKeyword")\
     .require("EpistemKeyword")\
-    .optionally("OriginKeyword")\
     .build()
 
 who_created_intent = IntentBuilder('WhoCreatedIntent')\
