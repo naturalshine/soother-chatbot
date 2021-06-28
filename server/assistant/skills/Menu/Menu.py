@@ -42,7 +42,7 @@ class Menu_skill(Skill):
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0			
 			menu = intent["MenuKeyword"]
-			rep = "We can have a therapy session, or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content. RuffRuff. Excuse me. RuffRuff. Someone's at the door. RuffRuff."
+			rep = "RuffRuff. Excuse me. RuffRuff. Someone's at the door. RuffRuff. Eh-hem. We can have a therapy session. Or I can tell you more about ASMR. Tell you about SOOTHER. Or recommend ASMR content."
 			response.append({
 				'file': "01",
 				'response': rep    
@@ -51,7 +51,7 @@ class Menu_skill(Skill):
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0			
 			menu = intent["MenuKeyword"]
-			rep = "Let me query my tentacles. I'm told these are the options: I can guide you through a meditation. Or I can tell you more about ASMR, tell you about SOOTHER, or recommend ASMR content."
+			rep = "Let me query my tentacles. I'm told these are the options: I can guide you through a meditation. Or I can tell you more about ASMR. Tell you about SOOTHER. Or recommend ASMR content."
 			response.append({
 				'file': "02",
 				'response': rep    

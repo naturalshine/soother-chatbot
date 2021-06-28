@@ -31,19 +31,19 @@ class Personality_skill(Skill):
 		intent_type = intent['intent_type']
 		cherrypy.log(intent_type)
 		if intent_type == 'ChangeRoleIntent':
-			rep = "I can play a dog who's your therapist, an alien sitting on your head, or your friend who is trapped in time. What would you like me to be?"
+			rep = "I can play a therapist dog, an alien, or your friend who is trapped in time. What would you like me to be?"
 			response.append({
 				'file': "0",
 				'response': rep    
 			})
 		elif intent_type == 'StartIntent':
-			rep = "Greetings! I'm SOOTHER, an AI voice companion. Like all AMSRtists, I play many personas. Today I can be a dog therapist, an alien, or your time-traveling friend. What would you like me to be?"
+			rep = "Greetings! I'm SOOTHER, an AI ASMR voice companion. Like all AMSRtists, I play many personas. Today I can be a dog therapist, an alien, or your time-traveling friend. What would you like me to be?"
 			response.append({
-				'file': "0",
+				'file': "200",
 				'response': rep    
 			})
 		elif intent_type == 'RolePlayIntent':
-			rep = "I can play a dog who's your therapist, an alien perched on your head, or your friend who slips through time. What would you like me to be?"
+			rep = "I can play a therapist dog, an alien, or your friend who is trapped in time. What would you like me to be?"
 			response.append({
 				'file': "0",
 				'response': rep    
@@ -70,7 +70,7 @@ class Personality_skill(Skill):
 			cherrypy.session["RolePlayContext"] = "FriendContext"
 			cherrypy.session["activeSkill"] = ""
 			cherrypy.session["LastUtteranceCount"] = 0
-			rep = "I'm your friend, I'm lost in time. What would you like to do?"
+			rep = "I'm your friend, I'm slipping through time. What would you like to do?"
 			response.append({
 				'file': "03",
 				'response': rep    

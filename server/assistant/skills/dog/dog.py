@@ -35,7 +35,7 @@ class dog_skill(Skill):
 		intent_type = intent['intent_type']
 		cherrypy.log(intent_type)
 		if intent_type == 'AboutDog':
-			rep = "I acquired language after my mommy saw Bunny the dog on TikTok and gave me a keyboard. I've earned several degrees from accredited institutions online, recently completing my MPhil/PhD in Psychoanalytic Studies. I'm a licensed analyst. On the internet, no one knows you're a dog! Now tell me about yourself."
+			rep = "I acquired language after my mommy saw Bunny the dog on TikTok and gave me a keyboard. I've earned several degrees from accredited institutions online. I recently completed my MPhil/PhD in Psychoanalytic Studies. I'm a licensed analyst. On the internet, no one knows you're a dog! Now tell me about yourself."
 			response.append({
 				'file': "01",
 				'response': rep    

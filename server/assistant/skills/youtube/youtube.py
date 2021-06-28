@@ -56,7 +56,7 @@ class youtube_skill(Skill):
 			self.ContextManager.handle_add_context("FavoriteVideoContext")
 			response.append({
 				'file': "02",
-				'response':"ASMR is Autonomous Sensory Meridian Response. It describes a tingling in the scalp and spine in response to soft sounds like whispering, nail-tapping, or hair-brushing. Do you have a favorite kind of ASMR video?",    
+				'response':"ASMR is Autonomous Sensory Meridian Response. It describes a tingling in the scalp and spine. it's a response to soft sounds like whispering, nail-tapping, or hair-brushing. Do you have a favorite kind of ASMR video?",    
 				'title': '',
 				'description': '',
 				'url': ''
@@ -142,7 +142,7 @@ class youtube_skill(Skill):
 		elif intent_type == "NoWatchFavoriteVideoIntent":
 			self.ContextManager.remove_context("WatchFavoriteVideoContext")
 			self.ContextManager.handle_add_context("RolePlayContext")
-			rep = "No problem. I love role-play videos. Would you like to watch one of those?"
+			rep = "No problem. I love unintentional ASMR videos. Would you like to watch one of those?"
 			response.append({
 				'file': "08",
 				'response': rep,
@@ -154,7 +154,7 @@ class youtube_skill(Skill):
 		elif intent_type == "YesRolePlayVideoIntent":
 			self.ContextManager.remove_context("RolePlayContext")
 			self.ContextManager.handle_add_context("RolePlayGenreContext")
-			rep = "What's your favorite role play type?"
+			rep = "Do you have a favorite unintentional ASMR scenario?"
 			response.append({
 				'file': "09",
 				'response': rep,
@@ -165,7 +165,7 @@ class youtube_skill(Skill):
 		elif intent_type == "NoRolePlayVideoIntent":
 			self.ContextManager.remove_context("RolePlayContext")
 			self.ContextManager.handle_add_context("NailTappingVideo")
-			rep = "I get it, role plays can be annoying. How an hour of nails tapping?"
+			rep = "Got it. How an hour of nails tapping?"
 			response.append({
 				'file': "10",
 				'response': rep,
@@ -182,13 +182,13 @@ class youtube_skill(Skill):
 
 			if "RolePlayKeyword" in intent:
 				self.rolePlayGenre = intent["RolePlayKeyword"]
-				reply = f"Here's a {self.rolePlayGenre} ASMR role play!"
+				reply = f"Here's a {self.rolePlayGenre} ASMR video!"
 			elif "keyword" in self.Context:
 				self.rolePlayGenre = self.Context['keyword']
-				reply = f"Here's a {self.rolePlayGenre} ASMR role play!"
+				reply = f"Here's a {self.rolePlayGenre} ASMR video!"
 			else: 
-				self.rolePlayGenre = "egyptian tomb imp"
-				reply = f"I'm sorry I couldn't understand you! Here's an {self.rolePlayGenre} ASMR role play!"
+				self.rolePlayGenre = "forest"
+				reply = f"I'm sorry I couldn't understand you! Here's an unintentional {self.rolePlayGenre} ASMR video!"
 
 			response = []
 			data=search_youtube(self.rolePlayGenre + " asmr")

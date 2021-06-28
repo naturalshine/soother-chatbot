@@ -26,7 +26,6 @@ class Brain(object):
         self.load_skill(skills_root_dir, 'dog')
         self.load_skill(skills_root_dir, 'friend')
         self.load_skill(skills_root_dir, 'alien')
-        self.load_skill(skills_root_dir, 'tea')
 
         if online:
             from RecordingsDatabase import RecordingsDatabase

@@ -30,7 +30,7 @@ class asmr_skill(Skill):
 		cherrypy.log(intent_type)
 		if intent_type == 'AboutAsmrIntent':
 			self.ContextManager.handle_add_context("AsmrContext")
-			rep = "ASMR, Autonomous Sensory Meridian Response, describes a tingling sensation in the scalp and spine in response to soft sounds like whispering, nail-tapping, and hair-brushing."
+			rep = "ASMR, Autonomous Sensory Meridian Response, describes a tingling sensation in the scalp and spine. A response to soft sounds like whispering, nail-tapping, and hair-brushing."
 			response.append({
 				'file': "0",
 				'response': rep    

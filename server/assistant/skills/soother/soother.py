@@ -36,7 +36,7 @@ class soother_skill(Skill):
 				'response': rep    
 			})
 		elif intent_type == 'HowCreatedIntent':
-			rep = "SOOTHER was created by hacking the open-source Macsen Welsh-language voice assistant, several intention parsing modules released by Mycroft AI, and Keith Ito's implementation of Google's Tacotron paper, which describes the creation of a voice model trained with recurrent neural networks."
+			rep = "SOOTHER was created by hacking the open-source Macsen Welsh-language voice assistant. Several intention parsing modules released by Mycroft AI. And Keith Ito's implementation of Google's Tacotron paper. Tacotron describes the creation of a voice model trained with recurrent neural networks."
 			response.append({
 				'file': "02",
 				'response': rep    
