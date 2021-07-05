@@ -12,20 +12,22 @@ $ make run
 
 ### USAGE
 
-To kill session (context):
+To kill session variables (and context):
 `http://localhost:5456/assistant/expire_sessions/`
 
 To query chatbot: 
 `http://localhost:5456/assistant/perform_skill?text=hello+soother`
 
-See also:
+Access also at:
 `https://api.urn.systems/assistant/`
+
+n.b. Session variables expire every hour. If you're having problems with the front-end app, you might want to: `https://api.urn.systems/assistant/expire_sessions`
 
 
 ### PROVENANCE AND ARCHITECTURE
 - I have hacked the [Macsen chatbot API](https://github.com/techiaith/macsen-sgwrsfot) to serve my purposes here, without completing all sensible refactoring. This means that the system of intent parsing doesn't totally make sense. 
 - The macsen chatbot API is a simple question and answer chatbot. It uses `Brain.py` to branch out to different skills, which are assigned their intents/keywords in the `intents` directory in each skill's directory. 
-- My hack is to add conversationl context, which I've done by customising the skill class (in Skill.py) and adding `SootherContext.py`, which draws on MycroftAI's [`adapt`](https://mycroft-ai.gitbook.io/docs/mycroft-technologies/adapt) intent parser. Adapt allows for the persistance of context between requests to the server. 
+- My hack is to add conversationl context, which I've done by customising the skill class (in `Skill.py`) and adding `SootherContext.py`, which draws on MycroftAI's [`adapt`](https://mycroft-ai.gitbook.io/docs/mycroft-technologies/adapt) intent parser. Adapt enables the persistance of context between requests to the server. 
 
 The current intent parsing workflow is as follows: 
 - `Brain.py` checks to see if `activeSkill` is set in the session variables
@@ -41,12 +43,22 @@ This two-tiered intent parsing architecture probably doesn't make sense, and the
 
 ### PERSONALITIES
 
-The SOOTHER personalities were hastily written and should be further refined. At the moment, they're extreme caricatures of ASMR role-play personality tropes and should be "toned down" in my opinion, or just given more consideration. 
+The SOOTHER personalities were hastily written and should be further refined. At the moment, they're extreme caricatures of ASMR role-play personality tropes and should be "toned down" in my opinion, or just given more consideration. They could all be enhanced with e.g. sound effects, etc. 
 
 Some existing issues with personalities: 
 - The "therapist" persona often malfunctions when accessed via the app (but not via the chatbot web interface) for reasons I have not determined!
-- The "therapist" persona also does not give accurate conversational feedback to the user. This persona is based upon ELIZA (the first therapy chatbot developed at MIT) and should follow ELIZA's rules for understanding conversational context in a more sophisticated way. My implementation is a hasty first pass at giving my therapist persona some of ELIZA's dialogue. This could easily be expanded with a bit more attention. 
-- The "friend" and "alien" 
+- The "therapist" persona also does not give accurate conversational feedback to the user. This persona is based upon ELIZA (the first therapy chatbot developed at MIT) and should follow ELIZA's rules for understanding conversational context in a more sophisticated way. My implementation is a hasty first pass at imbuing my therapist persona with some of ELIZA's dialogue. This could easily be expanded and refined with a bit more attention. 
+- The "friend" and "alien" personas have dialogue that is entirely too long for the synthesized whisper to support (and to display on the current chatbot interface). Either the dialogue needs to be split on the sentence at the chatbot server, or in the app before the text is sent to the TTS API for synthesis. 
+- The user is not currently able to switch persona from within each persona's sub-conversation. The user must return to the menu and, from there, say "switch personality". Personas should be able to be switched on demand from anywhere in the app. 
+
+
+### SYNTHESIS VS PRE-RECORDED VOICE
+
+Because my sythesized whisper is quite rough around the edges (and because of the cost of GPU servers), I have recorded all of SOOTHER's current dialogue as audio files that are simply included with the app. The chatbot API, as you can see, returns a file name that corresponds to the correct file in the app along with the text of the dialogue. 
+
+Because in this version, I am relying on the pre-recoreded audio files, I do not take full advantage of the possiblity of generating dialogue on the fly. I believe that this could be a very valuable feature of SOOTHER in the future and give the personalities more life. 
+
+The current architecture of including audio files in the app works fine for an alpha release but in the future any audio files should be streamed from the internet and/or temporarily downloaded and then deleted. 
 
 
 ### EXISTING ISSUES: 
