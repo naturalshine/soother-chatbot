@@ -53,7 +53,7 @@ class tea_skill(Skill):
 					'response': rep    
 				})
 			else: 
-				rep = f"Here's youre {teaType} tea with honey but no milk"
+				rep = f"Here's your {teaType} tea with honey but no milk"
 				response.append({
 					'file': "03",
 					'response': rep    
