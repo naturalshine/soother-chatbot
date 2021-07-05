@@ -70,7 +70,7 @@ class friend_skill(Skill):
 		elif intent_type == 'LifeExplainNegIntent':
 			self.ContextManager.remove_context("NegativeContext")
 			self.ContextManager.handle_add_context("TimeSlipContext")
-			rep = "Shhhh. Ah my friend that sounds tough. Shhhh. I wish I could give you a hug. But that hasn't happened for how many years? I was separated from my travelogue. I think it was about fifteen. Shhh. My friend it's happening again. Shhhhhh. I'm slipping. Shhhh. Time is flashing by. Shhhhh. Days and hours and minutes etched like a fractal before me. The fabric of the universe unwoven. Shhh. My stomach in my mouth. But where are either of them? Shhhh. Oh wow. It stopped. Can you guess where I am? Shhhh. Over."
+			rep = "Shhhh. Ah my friend that sounds tough. Shhhh. I wish I could give you a hug. But that hasn't happened for how many years? Shhh. My friend it's happening again. Shhhhhh. I'm slipping. Shhhh. Time is flashing by. Shhhhh. Days and hours and minutes etched like a fractal before me. The fabric of the universe unwoven. Shhhh. Oh wow. It stopped. Can you guess where I am? Shhhh. Over."
 			response.append({
 				'file': "05",
 				'response': rep    
@@ -78,7 +78,7 @@ class friend_skill(Skill):
 		elif intent_type == 'LifeExplainPosiIntent':
 			self.ContextManager.remove_context("PositiveContext")
 			self.ContextManager.handle_add_context("TimeSlipContext")
-			rep = "Ah that sounds so nice. So calm. It really brings me joy to live vicariously through your stability. Makes me feel a bit stable just to hear of your day. It's so long since we've been in the same place. I wish I could say offhand. But as you know I was separated from my travelogue. It must be fifteen years. Shhh. My friend it's happening again. Shhhhhh. I'm slipping. Shhhh. Time is flashing by. Shhhhh. Days and hours and minutes etched like a fractal before me. The fabric of the universe unwoven. Shhh. My stomach in my mouth. But where are either of them? Shhhh. Oh wow. It stopped. Can you guess where I am? Over."
+			rep = "Ah that sounds so nice. So calm. It really brings me joy to live vicariously through your stability. Makes me feel a bit stable just to hear of your day. It's so long since we've been in the same place. Shhh. My friend it's happening again. Shhhhhh. I'm slipping. Shhhh. Time is flashing by. Shhhhh. Days and hours and minutes etched like a fractal before me. The fabric of the universe unwoven. Shhh. Oh wow. It stopped. Can you guess where I am? Over."
 			response.append({
 				'file': "06",
 				'response': rep    

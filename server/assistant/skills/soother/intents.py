@@ -166,7 +166,7 @@ menu_intent = IntentBuilder('MenuIntent')\
     .build()
 
 what_soother_intent = IntentBuilder('WhatSootherIntent')\
-    .require('EpistemKeyowrd')\
+    .optionally('EpistemKeyword')\
     .require('SootherKeyword')\
     .build()
 

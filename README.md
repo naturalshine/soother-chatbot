@@ -1,63 +1,7 @@
-# Sgwrsfot ar gyfer Macsen
+# SOOTHER CHATBOT
+## v.1.0.0
 
-Dyma'r elfen sgwrsfot ar gyfer Macsen - meddalwedd cynorthwyydd personol digidol rydyn ni’n defnyddio i ddatblygu technoleg lleferydd a deallusrwydd artiffisial Cymraeg - sydd yn adnabod bwriad o fewn testun ac sy'n ymateb gydag ateb ac/neu ddata i alluogi Macsen i ymateb yn gywir ac yn ystyrlon.
-
-Dyma enghraifft o'i ddefnydd:
-
-_Beth fydd y tywydd yfory ym Mhwllheli?_
-
-https://localhost:5455/perform_skill?text=Beth+fydd+y+tywydd+yfory+ym+Mhwllheli%3F
-
-```
-{
-  "intent": "beth.fydd.y.tywydd", 
-  "version": 1, 
-  "success": true
-  "result": 
-    [
-      {
-        "url": "", 
-        "title": "Dyma tywydd yfory gan OpenWeatherMap ar gyfer Pwllheli.",
-        "description": ""
-      }, 
-      {
-        "title": ""      
-        "description": "Yfory am 9 o'r gloch yn y bore bydd hi'n bwrw glaw a'r tymheredd fydd 8 gradd Celsius.", 
-        "url": "", 
-      }, 
-      {
-        "title": ""
-        "description": "Yn hwyrach yfory am hanner dydd bydd hi'n bwrw glaw a'r tymheredd yn 9 gradd Celsius.", 
-        "url": "", 
-      }
-    ], 
-}
-```
-
-Defnyddir hybrid o lyfrgelloedd adnabod bwriad cod agored [Padatious](https://mycroft.ai/documentation/padatious/) ac [Adapt](https://mycroft.ai/documentation/adapt/) gan MyCroft.ai, yn ogystal a cydrannau ieithyddiaeth Cymraeg.
-
- Mae'r sgwrsfot yn medru adnabod sawl bwriad (neu dymuniad) o bump sgil (neu parth). Gwelir y sgiliau yn:
- 
- https://github.com/techiaith/macsen-sgwrsfot/tree/master/online-api/assistant/skills
- 
- Gwelir bwriadau pob sgil o fewn eu is-ffolder `intent`. e.e. 
- 
- https://github.com/techiaith/macsen-sgwrsfot/tree/master/online-api/assistant/skills/spotify/intents
- 
- Mae'r ffolderi `intents` yn cynnwys data ar gyfer hyfforddi Padatious ac Adapt. 
- 
- 
-## Llwytho i lawr a gosod y sgwrsfot
-
-Bydd angen cyfrifiadur gyda docker (https://www.docker.com/get-started) wedi'i osod arno eisoes. Bydd angen i chi drefnu allweddi API eich hunain i'r gwasanaethau allanol canlynol:
-
- - OpenWeatherMap (https://openweathermap.org/api)
- - TimezoneDB (https://timezonedb.com/api) 
- - Spotify (https://developer.spotify.com/documentation/web-api/) 
- 
-A'u rhoi mewn ffeiliau `apikey.py` o fewn is-ffolder yn y sgil berthnasol. 
- 
-Diolch i docker, mae'r proses gosod popeth arall yn hawdd iawn. Agorwch ffenestr 'Terminal' ar eich cyfrifiadur, ac o fewn ychydig iawn o  orchmynion bydd y sgwrsfot yn rhedeg ar eich system:
+### INSTALLATION:
  
 ```
 $ git clone https://github.com/naturalshine/soother-chatbot.git
@@ -65,3 +9,36 @@ $ cd soother-chatbot
 $ make build
 $ make run
 ```
+
+### USAGE
+
+To kill session (context):
+`http://localhost:5456/assistant/expire_sessions/`
+
+To query chatbot: 
+`http://localhost:5456/assistant/perform_skill?text=hello+soother`
+
+See also:
+`https://api.urn.systems/assistant/`
+
+
+### PROVENANCE AND ARCHITECTURE
+- I have hacked the [Macsen chatbot API](https://github.com/techiaith/macsen-sgwrsfot) to serve my purposes here, without completing all sensible refactoring. This means that the system of intent parsing doesn't totally make sense. 
+- The macsen chatbot API is a simple question and answer chatbot. It uses `Brain.py` to branch out to different skills, which are assigned their intents/keywords in the `intents` directory in each skill's directory. 
+- My hack is to add conversationl context, which I've done by customising the skill class (in Skill.py) and adding `SootherContext.py`, which draws on MycroftAI's [`adapt`](https://mycroft-ai.gitbook.io/docs/mycroft-technologies/adapt) intent parser. Adapt allows for the persistance of context between requests to the server. 
+
+The current intent parsing workflow is as follows: 
+- `Brain.py` checks to see if `activeSkill` is set in the session variables
+- if not, `Brain.py` evaluates the incoming request using the first-level intent parsing architecture (borrowed from the Macsen chatbot and determined via each skill's `intents` directory)
+- The selected skill is set as `activeSkill` in the session variables
+- The request is then routed to the second-level intent-parsing mechanism, defined in `$skillDir/intents.py` and selected in `$skillDir/$skillName.py`
+- Soother's dialogue is returned
+- When the next request comes in, `activeSkill` is already set in the session variables
+- Thus, the request is routed automatically to the `activeSkill` directory, enabling the persistance of a skill until the end of a sub-conversation. Context is applied within the skill via the `SootherContext` class and adapt intent parser as mentioned above. 
+- When a user returns to the menu or otherwise exits the skill, the `activeSkill` session variable is reset, enabling the selection of a different skill.
+
+This two-tiered intent parsing architecture probably doesn't make sense, and the hacked macsen first-level intent-parsing architecture should be eliminated in favor a purely Adapt-based architecture that carries the `activeSkill` paradigm purely through the use of Adapt's "context" capabilities. In my opinion, this would be the next logical step in architectural refinement. 
+
+### EXISTING ISSUES: 
+- Code is untested, and I'm sure there are bugs -- this is a very alpha version of the chatbot!
+- Code also definitely needs to be refactored and is in many ways inefficient -- all to say -- this is a rough version ;) 
