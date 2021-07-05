@@ -39,6 +39,16 @@ The current intent parsing workflow is as follows:
 
 This two-tiered intent parsing architecture probably doesn't make sense, and the hacked macsen first-level intent-parsing architecture should be eliminated in favor a purely Adapt-based architecture that carries the `activeSkill` paradigm purely through the use of Adapt's "context" capabilities. In my opinion, this would be the next logical step in architectural refinement. 
 
+### PERSONALITIES
+
+The SOOTHER personalities were hastily written and should be further refined. At the moment, they're extreme caricatures of ASMR role-play personality tropes and should be "toned down" in my opinion, or just given more consideration. 
+
+Some existing issues with personalities: 
+- The "therapist" persona often malfunctions when accessed via the app (but not via the chatbot web interface) for reasons I have not determined!
+- The "therapist" persona also does not give accurate conversational feedback to the user. This persona is based upon ELIZA (the first therapy chatbot developed at MIT) and should follow ELIZA's rules for understanding conversational context in a more sophisticated way. My implementation is a hasty first pass at giving my therapist persona some of ELIZA's dialogue. This could easily be expanded with a bit more attention. 
+- The "friend" and "alien" 
+
+
 ### EXISTING ISSUES: 
 - Code is untested, and I'm sure there are bugs -- this is a very alpha version of the chatbot!
 - Code also definitely needs to be refactored and is in many ways inefficient -- all to say -- this is a rough version ;) 
